@@ -30,5 +30,3 @@ jobs:
         goarch: ${{ matrix.goarch }}
         goversion: "1.22"
         project_path: "./cli"
-        binary_name: "test-binary"
-        extra_files: LICENSE README.md
