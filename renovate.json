@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "includePaths": [
-    "workflows/*"
-  ]
+  "github-actions": {
+    "fileMatch": ["./(workflows|.github/workflows)\/(.*/)?[^/]*\\.yaml"]
+  }
 }
