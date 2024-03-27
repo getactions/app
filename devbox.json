@@ -1,4 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/jetpack-io/devbox/0.10.1/.schema/devbox.schema.json",
-    "packages": []
+  "$schema":  "https://raw.githubusercontent.com/jetpack-io/devbox/0.10.1/.schema/devbox.schema.json",
+  "packages": ["go@1.22.1"]
 }
