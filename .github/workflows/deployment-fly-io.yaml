@@ -1,0 +1,25 @@
+---
+name: "Deploy to fly.io"
+description: "Deploys your application to fly.io"
+secrets:
+  FLY_API_TOKEN:
+    description: "Your fly.io token which can be generated [here](https://fly.io/user/personal_access_tokens)".
+    required: true
+---
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Fly!
+        uses: superfly/flyctl-actions/setup-flyctl@v1.5
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
