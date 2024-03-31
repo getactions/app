@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@openformation/getactions",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.6.3",
+    "@flydotio/dockerfile": "latest",
     "@remix-run/dev": "^2.8.1",
     "@types/common-tags": "^1.8.4",
     "@types/react": "^18.2.72",

@@ -1,7 +1,7 @@
 import { findByCategory } from "#workflows";
 import { err, ok } from "neverthrow";
+import { getBaseUrl } from "~/utils/get-base-url.server";
 import { Workflows } from "./model";
-import { getBaseUrl } from "~/utils/get-base-url";
 
 export async function getWorkflows(request: Request, category: string) {
   const baseUrl = getBaseUrl(request);
@@ -19,7 +19,7 @@ export async function getWorkflows(request: Request, category: string) {
       id: dao.id,
       name: dao.name,
       description: dao.description,
-      installCommand: `curl -s ${baseUrl}/${dao.id} | bash`
+      installCommand: `curl -s ${baseUrl}/${dao.id} | bash`,
     })),
   );
 
