@@ -14,6 +14,7 @@ type Props = Readonly<{
     id: string;
     name: string;
     description: string;
+    installCommand: string;
   }>;
 }>;
 

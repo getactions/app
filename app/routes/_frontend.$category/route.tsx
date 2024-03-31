@@ -7,14 +7,14 @@ export const meta: MetaFunction = () => {
   return [{ title: "getactions.dev" }];
 };
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
   const category = String(params.category);
 
   if (!category) {
     throw new Response("Bad Request", { status: 400 });
   }
 
-  const resultOfGettingWorkflows = await getWorkflows(category);
+  const resultOfGettingWorkflows = await getWorkflows(request, category);
 
   if (resultOfGettingWorkflows.isErr()) {
     console.error(resultOfGettingWorkflows.error);
@@ -31,7 +31,7 @@ export default function Index() {
   const loaderData = useLoaderData<typeof loader>();
 
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {loaderData.workflows.map((workflow) => (
         <WorkflowCard key={workflow.id} workflow={workflow} />
       ))}

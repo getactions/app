@@ -34,7 +34,7 @@ export function WorkflowSwitcher({ categories }: Props) {
   }
 
   return (
-    <div className="flex items-center gap-4 text-xl bg-white shadow-xl border-[1px] rounded-full py-6 px-14">
+    <div className="flex flex-col lg:flex-row items-center gap-4 text-xl bg-white shadow-xl border-[1px] lg:rounded-full py-6 px-14">
       <p>I need a </p>
 
       <Select onValueChange={handleNavigation}>

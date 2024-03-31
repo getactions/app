@@ -14,6 +14,7 @@ type Props = Readonly<{
     id: string;
     name: string;
     description: string;
+    installCommand: string;
   }>;
 }>;
 
@@ -36,8 +37,6 @@ export function WorkflowDialog({ workflow }: Props) {
     };
   }
 
-  const installCommand = `curl -s https://getactions.dev/${workflow.id} | bash`;
-
   return (
     <Dialog>
       <DialogTrigger className="text-primary">Use Workflow</DialogTrigger>
@@ -59,12 +58,12 @@ export function WorkflowDialog({ workflow }: Props) {
 
           <div className="flex flex-col gap-5">
             <h3 className="font-bold text-md text-primary">Install</h3>
-            <pre className="overflow-x-auto rounded-lg border flex justify-between items-center px-4 py-2 relative">
-              <code className="text-sm">{installCommand}</code>
+            <pre className="text-sm overflow-x-auto rounded-lg border flex flex-col lg:flex-row justify-between items-center px-4 py-2 relative whitespace-pre-line">
+              <span>{workflow.installCommand}</span>
 
               <CopyIcon
                 className="text-primary cursor-pointer"
-                onClick={handleCopy(installCommand)}
+                onClick={handleCopy(workflow.installCommand)}
               />
 
               {wasCopied ? (

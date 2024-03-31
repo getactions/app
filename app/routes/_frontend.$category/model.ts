@@ -5,6 +5,7 @@ export const Workflows = z.array(
     id: z.string(),
     name: z.string(),
     description: z.string(),
+    installCommand: z.string(),
   }),
 );
 
