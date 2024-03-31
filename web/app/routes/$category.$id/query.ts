@@ -1,9 +1,9 @@
-import { workflows } from "#workflows";
+import { findById } from "#workflows";
 import { err, ok } from "neverthrow";
 import { Workflow } from "./model";
 
 export async function getWorkflow(id: string) {
-  const result = await workflows(id);
+  const result = await findById(id);
 
   if (result.isErr()) {
     return err(result.error);

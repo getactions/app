@@ -25,8 +25,11 @@ export async function loader({ params }: LoaderFunctionArgs) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  // TODO: Render install script
   const script = renderInstallScript(workflow);
 
-  return new Response(script);
+  return new Response(script, {
+    headers: {
+      "Content-Type": "text/x-sh",
+    },
+  });
 }
