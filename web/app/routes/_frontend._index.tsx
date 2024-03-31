@@ -1,9 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
-import { Link } from "@remix-run/react";
-
 export const meta: MetaFunction = () => {
-  return [{ title: "New Open Formation Remix App" }];
+  return [{ title: "getactions.dev" }];
 };
 
 export default function Index() {

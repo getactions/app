@@ -1,5 +1,6 @@
 import { CopyIcon } from "@radix-ui/react-icons";
 import type { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
 
 import {
   Card,
@@ -67,8 +68,8 @@ export default function FrontendLayout() {
         <div className="grid grid-cols-3 gap-4">
           {[
             "fly.io",
-            "fly.io with Supabase",
-            "fly.io with Supabase Functions",
+            "fly.io with Supabase Push",
+            "fly.io with Supabase Migration & Functions Deployment",
             "Vercel",
             "AWS Lambda",
             "AWS Fargate",
@@ -135,22 +136,27 @@ export default function FrontendLayout() {
                             <TabsTrigger value="npm">npm</TabsTrigger>
                             <TabsTrigger value="pnpm">pnpm</TabsTrigger>
                             <TabsTrigger value="yarn">yarn</TabsTrigger>
+                            <TabsTrigger value="source">source</TabsTrigger>
                           </TabsList>
                           <TabsContent value="curl" className="mt-5">
                             <pre className="overflow-x-auto rounded-lg border flex justify-between items-center px-4 py-2">
                               <code className="text-sm">
-                                curl https://getactions.dev/fly-io | bash
+                                curl -s https://getactions.dev/fly-io | bash
                               </code>
-                              <CopyIcon />
+                              <CopyIcon className="text-primary cursor-pointer" />
                             </pre>
                           </TabsContent>
                           <TabsContent value="cli" className="mt-5">
                             <pre className="overflow-x-auto rounded-lg border flex justify-between items-center px-4 py-2">
-                              <code className="text-sm">
-                                actions -id fly-io
-                              </code>
-                              <CopyIcon />
+                              <code className="text-sm">getactions fly-io</code>
+                              <CopyIcon className="text-primary cursor-pointer" />
                             </pre>
+
+                            <p className="text-right pt-2 text-primary underline">
+                              <Link to="/">
+                                <small>Where do I get the CLI?</small>
+                              </Link>
+                            </p>
                           </TabsContent>
 
                           <TabsContent value="bun" className="mt-5">
@@ -158,7 +164,7 @@ export default function FrontendLayout() {
                               <code className="text-sm">
                                 bunx getactions -- fly-io
                               </code>
-                              <CopyIcon />
+                              <CopyIcon className="text-primary cursor-pointer" />
                             </pre>
                           </TabsContent>
 
@@ -167,7 +173,7 @@ export default function FrontendLayout() {
                               <code className="text-sm">
                                 npx getactions -- fly-io
                               </code>
-                              <CopyIcon />
+                              <CopyIcon className="text-primary cursor-pointer" />
                             </pre>
                           </TabsContent>
 
@@ -185,7 +191,16 @@ export default function FrontendLayout() {
                               <code className="text-sm">
                                 yarnx getactions -- fly-io
                               </code>
-                              <CopyIcon />
+                              <CopyIcon className="text-primary cursor-pointer" />
+                            </pre>
+                          </TabsContent>
+
+                          <TabsContent value="source" className="mt-5">
+                            <pre className="overflow-x-auto rounded-lg border flex justify-between items-center px-4 py-2">
+                              <code className="text-sm">
+                                yarnx getactions -- fly-io
+                              </code>
+                              <CopyIcon className="text-primary cursor-pointer" />
                             </pre>
                           </TabsContent>
                         </Tabs>

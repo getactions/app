@@ -3,7 +3,7 @@ name: "Deploy to fly.io"
 description: "Deploys your application to fly.io"
 secrets:
   FLY_API_TOKEN:
-    description: "Your fly.io token which can be generated [here](https://fly.io/user/personal_access_tokens)"
+    description: "Your fly.io token which can be generated here: https://fly.io/user/personal_access_tokens"
 ---
 on:
   push:
