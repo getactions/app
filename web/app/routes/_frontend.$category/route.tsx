@@ -1,14 +1,6 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { json, useLoaderData } from "@remix-run/react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
-import { WorkflowDialog } from "~/components/workflow-dialog";
+import { WorkflowCard } from "~/components/workflow-card";
 import { getWorkflows } from "./query";
 
 export const meta: MetaFunction = () => {
@@ -41,24 +33,7 @@ export default function Index() {
   return (
     <div className="grid grid-cols-3 gap-4">
       {loaderData.workflows.map((workflow) => (
-        <Card key={workflow.id}>
-          <CardHeader>
-            <div className="w-9 h-9">
-              <img
-                src="https://fly.io/static/images/brand/brandmark.svg"
-                alt="Fly.io"
-                className="w-full h-full"
-              />
-            </div>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            <CardTitle className="text-xl">{workflow.name}</CardTitle>
-            <CardDescription>{workflow.description}</CardDescription>
-          </CardContent>
-          <CardFooter className="flex justify-end">
-            <WorkflowDialog workflow={workflow} />
-          </CardFooter>
-        </Card>
+        <WorkflowCard key={workflow.id} workflow={workflow} />
       ))}
     </div>
   );

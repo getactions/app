@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { WorkflowIcon } from "./workflow-icon";
 
 type Props = Readonly<{
   workflow: Readonly<{
@@ -44,11 +45,7 @@ export function WorkflowDialog({ workflow }: Props) {
         <DialogHeader className="flex flex-col gap-5 pb-10">
           <DialogTitle className="flex flex-col items-center gap-4 text-2xl">
             <div className="w-9 h-9">
-              <img
-                src="https://fly.io/static/images/brand/brandmark.svg"
-                alt="Fly.io"
-                className="w-full h-full"
-              />
+              <WorkflowIcon id={workflow.id} name={workflow.name} />
             </div>
             <p>{workflow.name}</p>
           </DialogTitle>
