@@ -83,7 +83,7 @@ const result = await ResultAsync.fromPromise(
           const workflow = Workflow.parse({
             id,
             category: category.id,
-            name,
+            name: parsed.attributes.name,
             description: parsed.attributes.description,
             secrets: parsed.attributes.secrets,
             contents: parsed.body,
