@@ -16,6 +16,8 @@ export async function getWorkflow(id: string) {
   }
 
   const model = Workflow.safeParse({
+    id: workflow.id,
+    filename: workflow.filename,
     category: workflow.category,
     name: workflow.name,
     description: workflow.description,

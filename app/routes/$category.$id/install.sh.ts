@@ -1,13 +1,18 @@
+import { html, source, stripIndent, stripIndents } from "common-tags";
 import type { Workflow } from "./model";
 
 export function renderInstallScript(workflow: Workflow) {
-  return `
-  gray='\\033[0;37m'
-  yellow='\\033[1;33m'
-  green='\\033[0;32m'
-  reset='\\033[0m'
+  return source`
+#!/usr/bin/env bash
 
-  function print_table {
+gray='\\033[0;37m'
+yellow='\\033[1;33m'
+green='\\033[0;32m'
+reset='\\033[0m'
+
+hasSecrets=${workflow.secrets ? "true" : "false"}
+
+function print_table {
   echo
 
   # Calculate the maximum width for each column
@@ -56,9 +61,11 @@ export function renderInstallScript(workflow: Workflow) {
   echo
 }
 
-mkdir -p $(pwd)/.github/workflows
+workflowBasePath=$(pwd)/.github/workflows
 
-if [ -f "$(pwd)/.github/workflows/${workflow.name}.yaml" ]; then
+mkdir -p $workflowBasePath
+
+if [ -f "$workflowBasePath/${workflow.filename}" ]; then
   printf "\n\${gray}Workflow already exists. Overwrite? (y/n) \${reset}\n"
 
   read answer </dev/tty
@@ -68,29 +75,24 @@ if [ -f "$(pwd)/.github/workflows/${workflow.name}.yaml" ]; then
   fi
 fi
 
-workflowPath=$(pwd)/.github/workflows/${workflow.name}.yaml
+workflowPath=$workflowBasePath/${workflow.filename}
 
-cat << 'EOF' > $workflowPath
-${workflow.contents}
+# 'sed' is required here as the indented heredoc would be misaligned, if not used
+cat <<'EOF' | sed -e 's/^  //'> $workflowPath
+  ${workflow.contents}
 EOF
 
 printf "\n\${green}✅ Workflow created successfully!\${reset}\n"
 
 printf "\n\${gray}You can find the workflow file under \${workflowPath}\n"
 
-${
-  Object.keys(workflow.secrets) &&
-  `
+if [ $hasSecrets = "true" ]; then
+  printf "\n\${gray}This workflow requires you to create the following secrets within your GitHub repository: \n"
 
-printf "\n\${gray}This workflow requires you to create the following secrets within your GitHub repository:\n"
-# Define the table
-header=("Repository Secret" "Description")
-table=(${Object.keys(workflow.secrets).map(
-    (name) => `"${name}|${workflow.secrets[name].description}"`,
-  )})
+  header=("Repository Secret" "Description")
+  table=(${Object.keys(workflow.secrets).map((name) => `"${name}|${workflow.secrets[name].description}"`)})
 
-print_table
-`
-}
+  print_table
+fi
 `;
 }

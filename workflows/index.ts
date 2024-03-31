@@ -8,6 +8,7 @@ import { z } from "zod";
 
 const Workflow = z.object({
   id: z.string(),
+  filename: z.string(),
   category: z.string(),
   name: z.string(),
   description: z.string(),
@@ -83,6 +84,7 @@ const result = await ResultAsync.fromPromise(
           const workflow = Workflow.parse({
             id,
             category: category.id,
+            filename,
             name: parsed.attributes.name,
             description: parsed.attributes.description,
             secrets: parsed.attributes.secrets,
