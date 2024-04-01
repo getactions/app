@@ -38,7 +38,7 @@ export function WorkflowSwitcher({ categories }: Props) {
       <p>I need a </p>
 
       <Select onValueChange={handleNavigation}>
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[200px]">
           <SelectValue placeholder={selectedCategory?.name} />
         </SelectTrigger>
         <SelectContent className="text-2xl">

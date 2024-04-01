@@ -23,7 +23,7 @@ export function WorkflowCard({ workflow, footer }: Props) {
   return (
     <Card key={workflow.id} className="hover:shadow-xl transition-shadow">
       <CardHeader>
-        <div className="w-7 h-7">
+        <div className="w-8 h-8">
           <WorkflowIcon id={workflow.id} name={workflow.name} />
         </div>
       </CardHeader>
