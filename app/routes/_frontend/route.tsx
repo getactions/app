@@ -1,4 +1,5 @@
 import { Outlet, json, useLoaderData } from "@remix-run/react";
+import { Footer } from "~/components/footer";
 import { WorkflowSwitcher } from "~/components/workflow-switcher";
 import { getWorkflowCategories } from "./query";
 
@@ -20,7 +21,7 @@ export default function FrontendLayout() {
   const loaderData = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex flex-col gap-24">
+    <div className="h-screen flex flex-col gap-24">
       <header className="container flex flex-col gap-4 pt-16">
         <h1 className="text-center font-extrabold text-2xl">
           get<span className="text-primary">actions</span>
@@ -33,13 +34,15 @@ export default function FrontendLayout() {
           Don't waste time setting up initial workflows for your project.
         </p>
       </header>
-      <main className="container flex flex-col gap-20">
+      <main className="container flex-1 flex flex-col gap-20">
         <div className="flex justify-center">
           <WorkflowSwitcher categories={loaderData.categories} />
         </div>
 
         <Outlet />
       </main>
+
+      <Footer />
     </div>
   );
 }

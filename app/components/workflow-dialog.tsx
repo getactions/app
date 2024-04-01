@@ -1,4 +1,5 @@
 import { CopyIcon } from "@radix-ui/react-icons";
+import { Link } from "@remix-run/react";
 import { useState } from "react";
 import {
   Dialog,
@@ -39,7 +40,11 @@ export function WorkflowDialog({ workflow }: Props) {
 
   return (
     <Dialog>
-      <DialogTrigger className="text-primary">Use Workflow</DialogTrigger>
+      <DialogTrigger asChild>
+        <span className="text-sm text-primary cursor-pointer">
+          Use Workflow
+        </span>
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-5 pb-10">
           <DialogTitle className="flex flex-col items-center gap-4 text-2xl">
@@ -60,7 +65,7 @@ export function WorkflowDialog({ workflow }: Props) {
             <h3 className="font-bold text-md text-primary">Install</h3>
 
             <div className="text-sm rounded-lg border flex flex-col lg:flex-row justify-between items-center gap-4 px-4 py-2">
-              <pre className="whitespace-pre-line">
+              <pre className="whitespace-break-spaces">
                 {workflow.installCommand}
               </pre>
 
@@ -71,10 +76,28 @@ export function WorkflowDialog({ workflow }: Props) {
                 />
 
                 {wasCopied ? (
-                  <span className="text-xs text-primary">Copied</span>
+                  <span className="text-xs text-primary">Copied!</span>
                 ) : null}
               </div>
             </div>
+            <p className="text-xs text-center text-gray-700">
+              You can find the{" "}
+              <Link
+                className="text-primary"
+                target="_blank"
+                to={`https://github.com/openformation/getactions/tree/main/workflows/${workflow.id}.yaml`}
+              >
+                source
+              </Link>{" "}
+              of the template in our{" "}
+              <Link
+                className="text-primary"
+                to="https://github.com/openformation/getactions"
+              >
+                repository
+              </Link>
+              .
+            </p>
           </div>
         </div>
       </DialogContent>

@@ -6,7 +6,7 @@ type Props = Readonly<{
 export function WorkflowIcon(props: Props) {
   return (
     <img
-      src={`/icons/${props.id}.png`}
+      src={`/icons/${props.id}.svg`}
       alt={`Logo of the workflow "${props.name}"`}
       className="w-full h-full"
     />
