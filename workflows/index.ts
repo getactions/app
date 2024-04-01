@@ -14,6 +14,16 @@ const Workflow = z.object({
   title: z.string(),
   description: z.string(),
   readme: z.string(),
+
+  parameters: z
+    .record(
+      z.string(),
+      z.object({
+        description: z.string(),
+      }),
+    )
+    .optional(),
+
   secrets: z.record(
     z.string(),
     z.object({
@@ -74,6 +84,9 @@ const result = categories.flatMap((category) => {
       secrets: Readonly<{
         [name: string]: { description: string };
       }>;
+      parameters?: Readonly<{
+        [name: string]: { description: string };
+      }>;
     }>(workflowContents);
 
     const workflow = Workflow.parse({
@@ -86,6 +99,7 @@ const result = categories.flatMap((category) => {
       description: parsed.attributes.description,
       readme: parsed.attributes.readme,
       secrets: parsed.attributes.secrets,
+      parameters: parsed.attributes.parameters,
       contents: parsed.body,
     });
 

@@ -11,6 +11,7 @@ green='\\033[0;32m'
 reset='\\033[0m'
 
 hasSecrets=${workflow.secrets ? "true" : "false"}
+hasParameters=${workflow.parameters ? "true" : "false"}
 
 function print_table {
   echo
@@ -87,6 +88,18 @@ workflowPath=$workflowBasePath/\${filename}
 cat <<'EOF' | sed -e 's/^  //'> $workflowPath
   ${workflow.contents}
 EOF
+
+if [ $hasParameters = "true" ]; then
+  ${Object.keys(workflow.parameters ?? {}).map(
+    (parameterName) => source`
+      printf "\n\${gray}${workflow.parameters?.[parameterName].description}: \${reset}\n"
+
+      read ${parameterName} </dev/tty
+
+      sed -i "s|getactions.${parameterName}|$${parameterName}|g" "$workflowPath"
+    `,
+  )}
+fi
 
 printf "\n\${green}✅ Workflow created successfully!\${reset}\n"
 

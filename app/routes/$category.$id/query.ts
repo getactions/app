@@ -22,6 +22,7 @@ export async function getWorkflow(id: string) {
     name: workflow.name,
     description: workflow.description,
     secrets: workflow.secrets,
+    parameters: workflow.parameters,
     contents: workflow.contents,
   });
 

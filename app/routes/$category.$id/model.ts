@@ -12,6 +12,15 @@ export const Workflow = z.object({
       description: z.string(),
     }),
   ),
+  parameters: z
+    .record(
+      z.string(),
+      z.object({
+        description: z.string(),
+      }),
+    )
+    .optional(),
+
   contents: z.string(),
 });
 
