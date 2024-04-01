@@ -23,15 +23,16 @@ export default function FrontendLayout() {
   return (
     <div className="h-screen flex flex-col gap-24">
       <header className="container flex flex-col gap-4 pt-16">
-        <h1 className="text-center font-extrabold text-2xl">
+        <h1 className="leading-none text-midnight text-center font-extrabold text-2xl tracking-tight">
           get<span className="text-primary">actions</span>
         </h1>
-        <h2 className="text-center text-4xl font-extrabold">
+        <h2 className="text-midnight text-center text-4xl font-extrabold tracking-tight">
           Easy to use GitHub Actions Starter Workflows
         </h2>
 
         <p className="text-center text-2xl text-gray-500">
-          Don't waste time setting up initial workflows for your project.
+          Jumpstart your next project effortlessly without the hassle of
+          constructing complex GitHub Actions workflows.
         </p>
       </header>
       <main className="container flex-1 flex flex-col gap-20">

@@ -20,7 +20,7 @@ export function Footer() {
       <p className="text-center text-xs font-medium text-white/30">
         © Copyright, {new Date().getFullYear()} - MIT Licensed -{" "}
         <Link
-          className="hover:text-primary"
+          className="hover:text-primary cursor-pointer"
           to="https://github.com/openformation/getactions"
           target="_blank"
         >
@@ -28,7 +28,7 @@ export function Footer() {
         </Link>{" "}
         -{" "}
         <Link
-          className="hover:text-primary"
+          className="hover:text-primary cursor-pointer"
           to="https://openformation.io/imprint.html"
           target="_blank"
         >
