@@ -9,7 +9,7 @@ secrets:
   VERCEL_PROJECT_ID:
     description: "The ID of your project on Vercel. You can find it in the settings of your project under 'General' > 'Project ID'."
   VERCEL_TOKEN:
-    description: "The token for interacting with the Vercel API. You can more on how to create the token here: https://vercel.com/guides/how-do-i-use-a-vercel-api-access-token"
+    description: "The token for interacting with the Vercel API. You can learn more on how to create the token here: https://vercel.com/guides/how-do-i-use-a-vercel-api-access-token"
 ---
 name: Vercel Preview Deployment
 env:
