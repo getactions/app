@@ -2,26 +2,21 @@ import { CopyIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { WorkflowIcon } from "./workflow-icon";
 
 type Props = Readonly<{
   workflow: Readonly<{
     id: string;
     name: string;
-    description: string;
+    title: string;
     readme: string;
     installCommand: string;
   }>;
+  onClose: () => void;
 }>;
 
-export function WorkflowDialog({ workflow }: Props) {
+export function WorkflowDialog({ workflow, onClose }: Props) {
   const [wasCopied, setWasCopied] = useState(false);
 
   function handleCopy(contents: string) {
@@ -40,20 +35,19 @@ export function WorkflowDialog({ workflow }: Props) {
     };
   }
 
+  function onOpenChange(open: boolean) {
+    onClose();
+  }
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <span className="text-sm text-primary cursor-pointer">
-          Use Workflow
-        </span>
-      </DialogTrigger>
+    <Dialog open onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader className="flex flex-col gap-5 pb-10">
           <DialogTitle className="flex flex-col items-center gap-4 text-2xl">
             <div className="w-9 h-9">
               <WorkflowIcon id={workflow.id} name={workflow.name} />
             </div>
-            <p>{workflow.name}</p>
+            <p>{workflow.title}</p>
           </DialogTitle>
         </DialogHeader>
 

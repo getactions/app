@@ -1,5 +1,5 @@
 ---
-name: "fly.io"
+title: "fly.io"
 description: "You only need a Dockerfile and this workflow ships your application to fly.io"
 readme: |
   The deployment story of [fly.io](https://fly.io) is astonishing and with this workflow you can deploy your application to platform with ease. When your application was [initially setup](https://fly.io/docs/speedrun/) on fly.io, you can use this workflow to deploy your application whenever you pushed to the `main` branch.

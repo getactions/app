@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { json, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, json, useLoaderData } from "@remix-run/react";
 import { WorkflowCard } from "~/components/workflow-card";
 import { getWorkflows } from "./query";
 
@@ -27,10 +27,25 @@ export default function Index() {
   const loaderData = useLoaderData<typeof loader>();
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      {loaderData.workflows.map((workflow) => (
-        <WorkflowCard key={workflow.id} workflow={workflow} />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {loaderData.workflows.map((workflow) => (
+          <WorkflowCard
+            key={workflow.id}
+            workflow={workflow}
+            footer={
+              <Link
+                className="text-primary text-sm"
+                prefetch="intent"
+                to={`/${workflow.category}/${workflow.name}/details`}
+              >
+                Use Workflow
+              </Link>
+            }
+          />
+        ))}
+      </div>
+      <Outlet />
+    </>
   );
 }

@@ -18,9 +18,9 @@ export async function getWorkflows(request: Request, category: string) {
     daos.map((dao) => ({
       id: dao.id,
       name: dao.name,
+      category: dao.category,
+      title: dao.title,
       description: dao.description,
-      readme: dao.readme,
-      installCommand: `curl -s ${baseUrl}/${dao.id} | bash`,
     })),
   );
 

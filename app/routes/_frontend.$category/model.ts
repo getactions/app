@@ -3,10 +3,10 @@ import { z } from "zod";
 export const Workflows = z.array(
   z.object({
     id: z.string(),
+    category: z.string(),
     name: z.string(),
+    title: z.string(),
     description: z.string(),
-    readme: z.string(),
-    installCommand: z.string(),
   }),
 );
 

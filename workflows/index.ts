@@ -7,9 +7,11 @@ import { z } from "zod";
 
 const Workflow = z.object({
   id: z.string(),
+  name: z.string(),
   filename: z.string(),
   category: z.string(),
-  name: z.string(),
+
+  title: z.string(),
   description: z.string(),
   readme: z.string(),
   secrets: z.record(
@@ -66,7 +68,7 @@ const result = categories.flatMap((category) => {
     );
 
     const parsed = frontmatter<{
-      name: string;
+      title: string;
       description: string;
       readme: string;
       secrets: Readonly<{
@@ -76,9 +78,11 @@ const result = categories.flatMap((category) => {
 
     const workflow = Workflow.parse({
       id,
+      name,
       category: category.id,
       filename,
-      name: parsed.attributes.name,
+
+      title: parsed.attributes.title,
       description: parsed.attributes.description,
       readme: parsed.attributes.readme,
       secrets: parsed.attributes.secrets,
@@ -103,6 +107,7 @@ export async function findById(id: string) {
 
 export async function findByCategory(category: string) {
   const workflowsInCategory = Object.keys(workflows)
+
     .filter((id) => workflows[id].category === category)
     .map((id) => workflows[id]);
 

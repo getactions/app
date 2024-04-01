@@ -6,20 +6,20 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { WorkflowDialog } from "./workflow-dialog";
 import { WorkflowIcon } from "./workflow-icon";
 
 type Props = Readonly<{
   workflow: Readonly<{
     id: string;
     name: string;
+
+    title: string;
     description: string;
-    readme: string;
-    installCommand: string;
   }>;
+  footer: React.ReactNode;
 }>;
 
-export function WorkflowCard({ workflow }: Props) {
+export function WorkflowCard({ workflow, footer }: Props) {
   return (
     <Card key={workflow.id}>
       <CardHeader>
@@ -28,12 +28,10 @@ export function WorkflowCard({ workflow }: Props) {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
-        <CardTitle className="text-xl">{workflow.name}</CardTitle>
+        <CardTitle className="text-xl">{workflow.title}</CardTitle>
         <CardDescription>{workflow.description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-end">
-        <WorkflowDialog workflow={workflow} />
-      </CardFooter>
+      <CardFooter className="flex justify-end">{footer}</CardFooter>
     </Card>
   );
 }
