@@ -1,4 +1,4 @@
-import { html, source, stripIndent, stripIndents } from "common-tags";
+import { source } from "common-tags";
 import type { Workflow } from "./model";
 
 export function renderInstallScript(workflow: Workflow) {
@@ -62,10 +62,16 @@ function print_table {
 }
 
 workflowBasePath=$(pwd)/.github/workflows
-
 mkdir -p $workflowBasePath
 
-if [ -f "$workflowBasePath/${workflow.filename}" ]; then
+printf "\n\${gray}Name of the workflow file? (${workflow.filename}) \${reset}\n"
+read filename </dev/tty
+
+if [ -z "$filename" ]; then
+  filename=${workflow.filename}
+fi
+
+if [ -f "$workflowBasePath/\${filename}" ]; then
   printf "\n\${gray}Workflow already exists. Overwrite? (y/n) \${reset}\n"
 
   read answer </dev/tty
@@ -75,7 +81,7 @@ if [ -f "$workflowBasePath/${workflow.filename}" ]; then
   fi
 fi
 
-workflowPath=$workflowBasePath/${workflow.filename}
+workflowPath=$workflowBasePath/\${filename}
 
 # 'sed' is required here as the indented heredoc would be misaligned, if not used
 cat <<'EOF' | sed -e 's/^  //'> $workflowPath
@@ -90,7 +96,9 @@ if [ $hasSecrets = "true" ]; then
   printf "\n\${gray}This workflow requires you to create the following secrets within your GitHub repository: \n"
 
   header=("Repository Secret" "Description")
-  table=(${Object.keys(workflow.secrets).map((name) => `"${name}|${workflow.secrets[name].description}"`)})
+  table=(${Object.keys(workflow.secrets).map(
+    (name) => `"${name}|${workflow.secrets[name].description}"`,
+  )})
 
   print_table
 fi
