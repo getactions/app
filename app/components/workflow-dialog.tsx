@@ -58,18 +58,23 @@ export function WorkflowDialog({ workflow }: Props) {
 
           <div className="flex flex-col gap-5">
             <h3 className="font-bold text-md text-primary">Install</h3>
-            <pre className="text-sm overflow-x-auto rounded-lg border flex flex-col lg:flex-row justify-between items-center px-4 py-2 relative whitespace-pre-line">
-              <span>{workflow.installCommand}</span>
 
-              <CopyIcon
-                className="text-primary cursor-pointer"
-                onClick={handleCopy(workflow.installCommand)}
-              />
+            <div className="text-sm rounded-lg border flex flex-col lg:flex-row justify-between items-center gap-4 px-4 py-2">
+              <pre className="whitespace-pre-line">
+                {workflow.installCommand}
+              </pre>
 
-              {wasCopied ? (
-                <span className="text-xs text-primary">Copied</span>
-              ) : null}
-            </pre>
+              <div className="flex gap-2">
+                <CopyIcon
+                  className="text-primary cursor-pointer"
+                  onClick={handleCopy(workflow.installCommand)}
+                />
+
+                {wasCopied ? (
+                  <span className="text-xs text-primary">Copied</span>
+                ) : null}
+              </div>
+            </div>
           </div>
         </div>
       </DialogContent>
