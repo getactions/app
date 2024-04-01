@@ -19,6 +19,7 @@ export async function getWorkflows(request: Request, category: string) {
       id: dao.id,
       name: dao.name,
       description: dao.description,
+      readme: dao.readme,
       installCommand: `curl -s ${baseUrl}/${dao.id} | bash`,
     })),
   );

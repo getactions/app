@@ -11,6 +11,7 @@ const Workflow = z.object({
   category: z.string(),
   name: z.string(),
   description: z.string(),
+  readme: z.string(),
   secrets: z.record(
     z.string(),
     z.object({
@@ -67,6 +68,7 @@ const result = categories.flatMap((category) => {
     const parsed = frontmatter<{
       name: string;
       description: string;
+      readme: string;
       secrets: Readonly<{
         [name: string]: { description: string };
       }>;
@@ -78,6 +80,7 @@ const result = categories.flatMap((category) => {
       filename,
       name: parsed.attributes.name,
       description: parsed.attributes.description,
+      readme: parsed.attributes.readme,
       secrets: parsed.attributes.secrets,
       contents: parsed.body,
     });

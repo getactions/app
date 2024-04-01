@@ -14,6 +14,7 @@ type Props = Readonly<{
     id: string;
     name: string;
     description: string;
+    readme: string;
     installCommand: string;
   }>;
 }>;
@@ -22,7 +23,7 @@ export function WorkflowCard({ workflow }: Props) {
   return (
     <Card key={workflow.id}>
       <CardHeader>
-        <div className="w-9 h-9">
+        <div className="w-7 h-7">
           <WorkflowIcon id={workflow.id} name={workflow.name} />
         </div>
       </CardHeader>

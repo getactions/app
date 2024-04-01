@@ -1,6 +1,7 @@
 import { CopyIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
+import Markdown from "react-markdown";
 import {
   Dialog,
   DialogContent,
@@ -15,6 +16,7 @@ type Props = Readonly<{
     id: string;
     name: string;
     description: string;
+    readme: string;
     installCommand: string;
   }>;
 }>;
@@ -58,7 +60,23 @@ export function WorkflowDialog({ workflow }: Props) {
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-2">
             <h3 className="font-bold text-md text-primary">Description</h3>
-            <p className="text-muted-foreground">{workflow.description}</p>
+            <Markdown
+              className="text-muted-foreground"
+              components={{
+                a: ({ node, children, ...props }) => (
+                  <Link className="text-primary" to={props.href ?? ""}>
+                    {children}
+                  </Link>
+                ),
+                code: ({ node, children, ...props }) => (
+                  <code className="border-midnight border rounded text-xs text-midnight px-1.5 py-0.5">
+                    {children}
+                  </code>
+                ),
+              }}
+            >
+              {workflow.readme}
+            </Markdown>
           </div>
 
           <div className="flex flex-col gap-5">
