@@ -21,7 +21,7 @@ type Props = Readonly<{
 
 export function WorkflowCard({ workflow, footer }: Props) {
   return (
-    <Card key={workflow.id}>
+    <Card key={workflow.id} className="hover:shadow-xl transition-shadow">
       <CardHeader>
         <div className="w-7 h-7">
           <WorkflowIcon id={workflow.id} name={workflow.name} />

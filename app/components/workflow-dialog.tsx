@@ -63,7 +63,7 @@ export function WorkflowDialog({ workflow, onClose }: Props) {
                   </Link>
                 ),
                 code: ({ node, children, ...props }) => (
-                  <code className="border-midnight border rounded text-xs text-midnight px-1.5 py-0.5">
+                  <code className="border-midnight/50 border rounded text-xs text-midnight px-1.5 py-0.5">
                     {children}
                   </code>
                 ),

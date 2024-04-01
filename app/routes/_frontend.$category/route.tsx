@@ -29,21 +29,27 @@ export default function Index() {
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {loaderData.workflows.map((workflow) => (
-          <WorkflowCard
-            key={workflow.id}
-            workflow={workflow}
-            footer={
-              <Link
-                className="text-primary text-sm"
-                prefetch="intent"
-                to={`/${workflow.category}/${workflow.name}/details`}
-              >
-                Use Workflow
-              </Link>
-            }
-          />
-        ))}
+        {loaderData.workflows.map((workflow) => {
+          const detailsPath = `/${workflow.category}/${workflow.name}/details`;
+
+          return (
+            <Link key={workflow.id} to={detailsPath}>
+              <WorkflowCard
+                key={workflow.id}
+                workflow={workflow}
+                footer={
+                  <Link
+                    className="text-primary text-sm"
+                    prefetch="intent"
+                    to={detailsPath}
+                  >
+                    Use Workflow
+                  </Link>
+                }
+              />
+            </Link>
+          );
+        })}
       </div>
       <Outlet />
     </>
