@@ -1,4 +1,9 @@
-import { Outlet, json, useLoaderData } from "@remix-run/react";
+import {
+  Outlet,
+  json,
+  useLoaderData,
+  type MetaFunction,
+} from "@remix-run/react";
 import { Footer } from "~/components/footer";
 import { WorkflowSwitcher } from "~/components/workflow-switcher";
 import { getWorkflowCategories } from "./query";
@@ -16,6 +21,10 @@ export async function loader() {
 
   return json({ categories });
 }
+
+export const meta: MetaFunction = () => {
+  return [{ title: "GitHub Actions Starter Workflows - getactions.dev" }];
+};
 
 export default function FrontendLayout() {
   const loaderData = useLoaderData<typeof loader>();

@@ -1,11 +1,7 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json, useLoaderData } from "@remix-run/react";
 import { WorkflowCard } from "~/components/workflow-card";
 import { getWorkflows } from "./query";
-
-export const meta: MetaFunction = () => {
-  return [{ title: "getactions.dev" }];
-};
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const category = String(params.category);
