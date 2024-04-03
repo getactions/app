@@ -13,6 +13,11 @@ jobs:
 
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
 
+      - name: "Inject Fly.io app name into config"
+        run: sed -i "s|\$FLY_APP_NAME|${FLY_APP_NAME}|g" fly.toml 
+        env:
+          FLY_APP_NAME: ${{ secrets.PRODUCTION_FLY_APP_NAME }}
+
       - name: Fly!
         run: flyctl deploy --remote-only --no-cache
         env:

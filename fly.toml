@@ -1,9 +1,4 @@
-# fly.toml app configuration file generated for getactions on 2024-03-31T19:52:11+02:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'getactions'
+app = '$FLY_APP_NAME'
 primary_region = 'ams'
 
 [build]
