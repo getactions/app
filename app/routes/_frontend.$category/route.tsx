@@ -1,16 +1,28 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
+import { getCategories } from "#workflows";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, Outlet, json, redirect, useLoaderData } from "@remix-run/react";
 import { WorkflowCard } from "~/components/workflow-card";
 import { getWorkflows } from "./query";
 
-export async function loader({ request, params }: LoaderFunctionArgs) {
-  const category = String(params.category);
+export const meta: MetaFunction<typeof loader> = ({ params, data }) => {
+  return [
+    {
+      title: `GitHub Actions Starter Workflows: ${data?.category?.name} Workflows - getactions.dev`,
+    },
+  ];
+};
 
-  if (!category) {
+export async function loader({ request, params }: LoaderFunctionArgs) {
+  const requestedCategory = String(params.category);
+
+  if (!requestedCategory) {
     throw new Response("Bad Request", { status: 400 });
   }
 
-  const resultOfGettingWorkflows = await getWorkflows(request, category);
+  const resultOfGettingWorkflows = await getWorkflows(
+    request,
+    requestedCategory,
+  );
 
   if (resultOfGettingWorkflows.isErr()) {
     console.error(resultOfGettingWorkflows.error);
@@ -24,7 +36,12 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     return redirect("/deployment");
   }
 
-  return json({ workflows });
+  const categories = await getCategories();
+  const category = categories.find(
+    (category) => category.id === requestedCategory,
+  );
+
+  return json({ category, workflows });
 }
 
 export default function Index() {

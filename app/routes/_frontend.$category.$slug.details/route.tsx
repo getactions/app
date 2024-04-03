@@ -1,8 +1,18 @@
-import { json, type LoaderFunctionArgs } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+
+import { json } from "@remix-run/node";
 
 import { useLoaderData, useNavigate } from "@remix-run/react";
 import { WorkflowDialog } from "~/components/workflow-dialog";
 import { getWorkflow } from "./query";
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [
+    {
+      title: `GitHub Actions Starter Workflows: ${data?.workflow.title} - getactions.dev`,
+    },
+  ];
+};
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const category = String(params.category);
