@@ -14,4 +14,9 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
 
       - name: Fly!
-        run: flyctl deploy --remote-only --no-cache --app ${{ secrets.PRODUCTION_FLY_APP_NAME }} --access-token ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          flyctl deploy \
+            --remote-only \
+            --no-cache \
+            --app ${{ secrets.FLY_APP_NAME }} \
+            --access-token ${{ secrets.FLY_API_TOKEN }}
