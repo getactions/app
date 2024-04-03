@@ -1,4 +1,3 @@
-app = '$FLY_APP_NAME'
 primary_region = 'ams'
 
 [build]
