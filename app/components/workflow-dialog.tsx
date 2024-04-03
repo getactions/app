@@ -122,40 +122,40 @@ export function WorkflowDialog(props: Props) {
     }
   }
 
-  if (isDesktop) {
+  if (!isDesktop) {
     return (
-      <Dialog open onOpenChange={onOpenChange}>
-        <DialogContent>
-          <DialogHeader className="flex flex-col gap-5 pb-4">
-            <DialogTitle className="flex flex-col items-center gap-4 text-2xl">
+      <Drawer open={open} onOpenChange={onOpenChange}>
+        <DrawerContent>
+          <DrawerHeader className="text-left">
+            <DrawerTitle className="flex flex-col items-center gap-4 text-2xl">
               <div className="w-9 h-9">
                 <WorkflowIcon id={workflow.id} name={workflow.name} />
               </div>
-              <p>{workflow.title}</p>
-            </DialogTitle>
-          </DialogHeader>
-
-          <Instructions {...props} />
-        </DialogContent>
-      </Dialog>
+              <p className="w-3/4 text-center">{workflow.title}</p>
+            </DrawerTitle>
+          </DrawerHeader>
+          <div className="p-8">
+            <Instructions {...props} />
+          </div>
+        </DrawerContent>
+      </Drawer>
     );
   }
 
   return (
-    <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle className="flex flex-col items-center gap-4 text-2xl">
+    <Dialog open onOpenChange={onOpenChange}>
+      <DialogContent>
+        <DialogHeader className="flex flex-col gap-5 pb-4">
+          <DialogTitle className="flex flex-col items-center gap-4 text-2xl">
             <div className="w-9 h-9">
               <WorkflowIcon id={workflow.id} name={workflow.name} />
             </div>
-            <p className="w-3/4 text-center">{workflow.title}</p>
-          </DrawerTitle>
-        </DrawerHeader>
-        <div className="p-8">
-          <Instructions {...props} />
-        </div>
-      </DrawerContent>
-    </Drawer>
+            <p>{workflow.title}</p>
+          </DialogTitle>
+        </DialogHeader>
+
+        <Instructions {...props} />
+      </DialogContent>
+    </Dialog>
   );
 }

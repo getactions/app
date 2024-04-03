@@ -33,6 +33,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <Meta />
         <Links />
+        <script
+          defer
+          data-domain="getactions.dev"
+          src="https://plausible.openformation.io/js/script.js"
+        />
       </head>
       <body className="antialiased">
         {children}

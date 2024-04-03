@@ -34,8 +34,6 @@ export default function WorkflowDetails() {
   }
 
   return (
-    <div>
-      <WorkflowDialog workflow={loaderData.workflow} onClose={handleClose} />
-    </div>
+    <WorkflowDialog workflow={loaderData.workflow} onClose={handleClose} />
   );
 }
