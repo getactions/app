@@ -39,7 +39,7 @@ export default function FrontendLayout() {
           Easy to use GitHub Actions Starter Workflows
         </h2>
 
-        <p className="text-center text-2xl text-gray-500 w-1/2 m-auto">
+        <p className="text-center text-2xl text-gray-500 lg:w-1/2 m-auto">
           Jumpstart your next project effortlessly without the hassle of
           constructing complex GitHub Actions workflows.
         </p>

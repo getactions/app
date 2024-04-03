@@ -6,12 +6,15 @@ export const Workflow = z.object({
   category: z.string(),
   name: z.string(),
   description: z.string(),
-  secrets: z.record(
-    z.string(),
-    z.object({
-      description: z.string(),
-    }),
-  ),
+  secrets: z
+    .record(
+      z.string(),
+      z.object({
+        description: z.string(),
+      }),
+    )
+    .optional(),
+
   parameters: z
     .record(
       z.string(),

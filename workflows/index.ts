@@ -24,12 +24,14 @@ const Workflow = z.object({
     )
     .optional(),
 
-  secrets: z.record(
-    z.string(),
-    z.object({
-      description: z.string(),
-    }),
-  ),
+  secrets: z
+    .record(
+      z.string(),
+      z.object({
+        description: z.string(),
+      }),
+    )
+    .optional(),
   contents: z.string(),
 });
 

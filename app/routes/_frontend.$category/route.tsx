@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, Outlet, json, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, json, redirect, useLoaderData } from "@remix-run/react";
 import { WorkflowCard } from "~/components/workflow-card";
 import { getWorkflows } from "./query";
 
@@ -20,6 +20,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
   const workflows = resultOfGettingWorkflows.value;
 
+  if (!workflows.length) {
+    return redirect("/deployment");
+  }
+
   return json({ workflows });
 }
 
@@ -33,6 +37,7 @@ export default function Index() {
           <Link
             key={workflow.id}
             to={`/${workflow.category}/${workflow.name}/details`}
+            preventScrollReset={true}
             prefetch="intent"
           >
             <WorkflowCard

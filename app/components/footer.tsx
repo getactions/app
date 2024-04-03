@@ -1,10 +1,9 @@
 import { Link } from "@remix-run/react";
-import { cn } from "~/utils/cn";
 import { Separator } from "./separator";
 
 export function Footer() {
   return (
-    <footer className={cn("bg-midnight text-white pb-8")}>
+    <footer className="bg-midnight text-white pb-8">
       <Separator gradient="hyper" />
 
       <div className="container flex flex-col pt-8 py-4">

@@ -30,7 +30,7 @@ export default function WorkflowDetails() {
   const loaderData = useLoaderData<typeof loader>();
 
   function handleClose() {
-    navigate(`/${loaderData.workflow.category}`);
+    navigate(`/${loaderData.workflow.category}`, { preventScrollReset: true });
   }
 
   return (

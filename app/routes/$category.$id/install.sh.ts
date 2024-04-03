@@ -5,6 +5,15 @@ export function renderInstallScript(workflow: Workflow) {
   return source`
 #!/usr/bin/env bash
 
+#
+# getactions.dev
+#
+# Installation Script
+#
+# Repository: https://github.com/openformation/getactions
+# Contact: hi@getactions.dev
+#
+#
 gray='\\033[0;37m'
 yellow='\\033[1;33m'
 green='\\033[0;32m'
@@ -109,9 +118,12 @@ if [ $hasSecrets = "true" ]; then
   printf "\n\${gray}This workflow requires you to create the following secrets within your GitHub repository: \n"
 
   header=("Repository Secret" "Description")
-  table=(${Object.keys(workflow.secrets).map(
-    (name) => `"${name}|${workflow.secrets[name].description}"`,
-  )})
+  table=(${
+    workflow.secrets &&
+    Object.keys(workflow.secrets).map(
+      (name) => `"${name}|${workflow.secrets?.[name].description}"`,
+    )
+  })
 
   print_table
 fi
