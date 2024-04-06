@@ -38,10 +38,18 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = new URL(baseUrl).host;
 
+  // Might be possible that the reverse proxy adds more IP addresses. We pick the first one
+  // as this is the one from the client.
+  const xForwardedFor = request.headers
+    .get("x-forwarded-for")
+    ?.split(",")
+    .at(0);
+
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
     headers: {
       ...request.headers,
+      "X-Forwarded-For": xForwardedFor ?? "",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
