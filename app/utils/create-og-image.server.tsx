@@ -18,16 +18,8 @@ const backgrounds = [
     css: "linear-gradient(to right top, rgb(236, 72, 153), rgb(239, 68, 68), rgb(234, 179, 8))",
   },
   {
-    name: "Flamingo",
-    css: "linear-gradient(to right top, rgb(244, 114, 182), rgb(219, 39, 119))",
-  },
-  {
     name: "Picture",
     css: "linear-gradient(to left bottom, rgb(217, 70, 239), rgb(220, 38, 38), rgb(251, 146, 60))",
-  },
-  {
-    name: "Video",
-    css: "linear-gradient(to left top, rgb(239, 68, 68), rgb(153, 27, 27))",
   },
   {
     name: "Pink Neon",
@@ -91,40 +83,36 @@ export function makeGenerateOgImage() {
     try {
       const template = (
         <div
-          tw="h-full w-full flex items-start justify-start"
+          tw="flex flex-col w-full h-full py-8"
           style={{
             background: background.css,
           }}
         >
-          <div tw="flex items-start justify-start h-full">
-            <div tw="flex flex-col justify-between w-full h-full p-4">
-              <div tw="flex flex-col bg-white/90 h-full rounded-3xl justify-center">
-                <h2 tw="flex justify-center text-7xl font-extrabold opacity-90 tracking-tight leading-tight text-center px-10">
-                  {request.title}
-                </h2>
-                {request.subtitle ? (
-                  <p tw="flex justify-center text-2xl font-medium px-10 text-center pr-30">
-                    {request.subtitle}
-                  </p>
-                ) : null}
+          <h1 tw="flex justify-center text-3xl font-extrabold text-center tracking-[-2px]">
+            <span tw=" bg-white px-8 py-2 shadow-2xl rounded-full block">
+              get
+              <span tw="text-[#e11d48]">actions</span>.dev
+            </span>
+          </h1>
+          <h2 tw="flex justify-center text-7xl font-extrabold tracking-tight leading-tight text-center px-23 text-white">
+            {request.title}
+          </h2>
+          {request.subtitle ? (
+            <p tw="flex justify-center text-3xl font-medium w-1/2 mx-auto text-center text-white">
+              {request.subtitle}
+            </p>
+          ) : null}
 
-                {request.shell ? (
-                  <div tw="flex justify-center mt-8 mx-38 rounded-3xl bg-white">
-                    <pre
-                      tw="text-xl font-medium"
-                      style={{ fontFamily: "Space Mono" }}
-                    >
-                      {request.shell}
-                    </pre>
-                  </div>
-                ) : null}
-                <h1 tw="flex justify-center text-3xl font-extrabold text-center tracking-[-2px] leading-none px-8 pt-14">
-                  get
-                  <span tw="text-[#e11d48]">actions</span>.dev
-                </h1>
-              </div>
+          {request.shell ? (
+            <div tw="flex justify-center mt-14 mx-30 rounded-full bg-white shadow-2xl">
+              <pre
+                tw="text-xl font-medium"
+                style={{ fontFamily: "Space Mono" }}
+              >
+                {request.shell}
+              </pre>
             </div>
-          </div>
+          ) : null}
         </div>
       );
 
