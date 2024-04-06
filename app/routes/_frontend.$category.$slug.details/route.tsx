@@ -1,15 +1,27 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-import { json } from "@remix-run/node";
-
-import { useLoaderData, useNavigate } from "@remix-run/react";
-import { WorkflowDialog } from "~/components/workflow-dialog";
-import { getWorkflow } from "./query";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { Link, json, useLoaderData } from "@remix-run/react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "~/components/ui/breadcrumb";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
+import { WorkflowDetailCard } from "~/components/workflow-detail-card";
+import { getModel } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   return [
     {
-      title: `GitHub Actions Starter Workflows: ${data?.workflow.title} - getactions.dev`,
+      title: `GitHub Actions Starter Workflows: ${data?.currentWorkflow.title} - getactions.dev`,
     },
   ];
 };
@@ -22,28 +34,78 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     throw new Response("Bad Request", { status: 400 });
   }
 
-  const resultOfGettingWorkflow = await getWorkflow(request, category, slug);
+  const result = await getModel(request, category, slug);
 
-  if (resultOfGettingWorkflow.isErr()) {
-    console.error(resultOfGettingWorkflow.error);
+  if (result.isErr()) {
+    console.error(result.error);
 
     throw new Response("Internal Server Error", { status: 500 });
   }
 
-  const workflow = resultOfGettingWorkflow.value;
+  const model = result.value;
 
-  return json({ workflow });
+  return json(model);
 }
 
 export default function WorkflowDetails() {
-  const navigate = useNavigate();
   const loaderData = useLoaderData<typeof loader>();
 
-  function handleClose() {
-    navigate(`/${loaderData.workflow.category}`, { preventScrollReset: true });
-  }
-
   return (
-    <WorkflowDialog workflow={loaderData.workflow} onClose={handleClose} />
+    <div className="container w-3/4 flex flex-col gap-8">
+      <div className="flex justify-center">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">All Workflows</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  {loaderData.currentCategory.name}
+                  <ChevronDownIcon />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  {loaderData.categories.map((category) => (
+                    <DropdownMenuItem key={category.id}>
+                      <Link
+                        prefetch="intent"
+                        to={`/${category.id}`}
+                        className="w-full"
+                      >
+                        {category.name}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1">
+                  {loaderData.currentWorkflow.title}
+                  <ChevronDownIcon />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  {loaderData.workflows.map((workflow) => (
+                    <DropdownMenuItem key={workflow.id}>
+                      <Link
+                        prefetch="intent"
+                        to={`/${workflow.id}/details`}
+                        className="w-full"
+                      >
+                        {workflow.title}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      <WorkflowDetailCard workflow={loaderData.currentWorkflow} />
+    </div>
   );
 }

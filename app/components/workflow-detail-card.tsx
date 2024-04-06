@@ -2,9 +2,7 @@ import { CopyIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
-import { useMediaQuery } from "usehooks-ts";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "./ui/drawer";
+import { Card, CardContent, CardHeader } from "./ui/card";
 import { WorkflowIcon } from "./workflow-icon";
 
 type Props = Readonly<{
@@ -15,10 +13,9 @@ type Props = Readonly<{
     readme: string;
     installCommand: string;
   }>;
-  onClose: () => void;
 }>;
 
-function Instructions({ workflow, onClose }: Props) {
+function Instructions({ workflow }: Props) {
   const [wasCopied, setWasCopied] = useState(false);
 
   function handleCopy(contents: string) {
@@ -56,6 +53,9 @@ function Instructions({ workflow, onClose }: Props) {
               <code className="border-midnight/50 border rounded text-xs text-midnight px-1.5 py-0.5">
                 {children}
               </code>
+            ),
+            p: ({ node, children }) => (
+              <p className="py-2 leading-loose">{children}</p>
             ),
           }}
         >
@@ -105,57 +105,23 @@ function Instructions({ workflow, onClose }: Props) {
   );
 }
 
-export function WorkflowDialog(props: Props) {
-  const [open, setOpen] = useState(true);
-
-  const { workflow, onClose } = props;
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  async function onOpenChange(open: boolean) {
-    setOpen(open);
-
-    if (!open) {
-      // Give the close animation a little bit more time to finish
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      onClose();
-    }
-  }
-
-  if (!isDesktop) {
-    return (
-      <Drawer open={open} onOpenChange={onOpenChange}>
-        <DrawerContent>
-          <DrawerHeader className="text-left">
-            <DrawerTitle className="flex flex-col items-center gap-4 text-2xl">
-              <div className="w-9 h-9">
-                <WorkflowIcon id={workflow.id} name={workflow.name} />
-              </div>
-              <p className="w-3/4 text-center">{workflow.title}</p>
-            </DrawerTitle>
-          </DrawerHeader>
-          <div className="p-8">
-            <Instructions {...props} />
-          </div>
-        </DrawerContent>
-      </Drawer>
-    );
-  }
-
+export function WorkflowDetailCard({ workflow }: Props) {
   return (
-    <Dialog open onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader className="flex flex-col gap-5 pb-4">
-          <DialogTitle className="flex flex-col items-center gap-4 text-2xl">
-            <div className="w-9 h-9">
-              <WorkflowIcon id={workflow.id} name={workflow.name} />
-            </div>
-            <p>{workflow.title}</p>
-          </DialogTitle>
-        </DialogHeader>
+    <Card className="p-10 shadow-lg">
+      <CardHeader>
+        <div className="flex flex-col items-center gap-4">
+          <span className="w-10 h-10">
+            <WorkflowIcon id={workflow.id} name={workflow.name} />
+          </span>
 
-        <Instructions {...props} />
-      </DialogContent>
-    </Dialog>
+          <h2 className="text-3xl font-bold text-center text-midnight">
+            {workflow.title}
+          </h2>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Instructions workflow={workflow} />
+      </CardContent>
+    </Card>
   );
 }
