@@ -1,7 +1,7 @@
 import { getCategories } from "#workflows";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Link, json, redirect, useLoaderData } from "@remix-run/react";
-import { WorkflowCard } from "~/components/workflow-card";
+import { json, redirect, useLoaderData } from "@remix-run/react";
+import { WorkflowCards } from "~/components/workflow-cards";
 import { WorkflowSwitcher } from "~/components/workflow-switcher";
 import { getBaseUrl } from "~/utils/get-base-url.server";
 import { getWorkflows } from "./query";
@@ -102,21 +102,7 @@ export default function Index() {
         <WorkflowSwitcher categories={loaderData.categories} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {loaderData.workflows.map((workflow) => (
-          <Link
-            key={workflow.id}
-            to={`/${workflow.category}/${workflow.name}/details`}
-            preventScrollReset={true}
-            prefetch="intent"
-          >
-            <WorkflowCard
-              workflow={workflow}
-              footer={
-                <span className="text-primary text-sm">Use Workflow</span>
-              }
-            />
-          </Link>
-        ))}
+        <WorkflowCards workflows={loaderData.workflows} />
       </div>
     </>
   );
