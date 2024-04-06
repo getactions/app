@@ -4,5 +4,6 @@ export const Model = z.object({
   id: z.string(),
   category: z.object({ id: z.string(), name: z.string() }),
   title: z.string(),
+  description: z.string(),
   installCommand: z.string(),
 });

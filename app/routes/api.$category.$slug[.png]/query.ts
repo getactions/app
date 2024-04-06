@@ -21,6 +21,7 @@ export async function getModel(
     id,
     category: currentCatgory,
     title: workflow.title,
+    description: workflow.description,
     installCommand,
   });
 

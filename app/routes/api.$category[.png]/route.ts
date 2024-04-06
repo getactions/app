@@ -5,7 +5,6 @@ import { getModel } from "./query";
 
 const ParamsSchema = z.object({
   category: z.string(),
-  slug: z.string(),
 });
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -15,11 +14,7 @@ export async function loader(args: LoaderFunctionArgs) {
     throw new Response("Bad Request", { status: 400 });
   }
 
-  const fetchModelResult = await getModel(
-    args.request,
-    params.data.category,
-    params.data.slug,
-  );
+  const fetchModelResult = await getModel(params.data.category);
 
   if (fetchModelResult.isErr()) {
     console.error(fetchModelResult.error);
@@ -32,9 +27,9 @@ export async function loader(args: LoaderFunctionArgs) {
   const createOgImage = makeGenerateOgImage();
 
   const resultOfGeneratingImage = await createOgImage({
-    title: model.title,
-    subtitle: model.description,
-    shell: model.installCommand,
+    title: `${model.name} Workflows`,
+    subtitle:
+      "Jumpstart your next project effortlessly without the hassle of constructing complex GitHub Actions workflows.",
   });
 
   if (resultOfGeneratingImage.isErr()) {

@@ -7,7 +7,7 @@ import { err, ok } from "neverthrow";
 
 type GenerateOgImageRequest = Readonly<{
   title: string;
-  subtitle: string;
+  subtitle?: string;
   shell?: string;
 }>;
 
@@ -99,17 +99,14 @@ export function makeGenerateOgImage() {
           <div tw="flex items-start justify-start h-full">
             <div tw="flex flex-col justify-between w-full h-full p-4">
               <div tw="flex flex-col bg-white/70 h-full rounded-3xl justify-center">
-                <h1 tw="flex justify-center text-3xl font-extrabold text-center tracking-[-2px] leading-none px-8">
-                  get
-                  <span tw="text-[#e11d48]">actions</span>.dev
-                </h1>
-
-                <h2 tw="flex justify-center text-7xl font-extrabold opacity-90 tracking-tight leading-10">
+                <h2 tw="flex justify-center text-7xl font-extrabold opacity-90 tracking-tight leading-tight text-center px-10">
                   {request.title}
                 </h2>
-                <p tw="flex justify-center text-3xl font-medium">
-                  {request.subtitle}
-                </p>
+                {request.subtitle ? (
+                  <p tw="flex justify-center text-2xl font-medium px-10 text-center pr-30">
+                    {request.subtitle}
+                  </p>
+                ) : null}
 
                 {request.shell ? (
                   <div tw="flex justify-center mt-8 mx-38 rounded-3xl bg-white">
@@ -121,6 +118,10 @@ export function makeGenerateOgImage() {
                     </pre>
                   </div>
                 ) : null}
+                <h1 tw="flex justify-center text-3xl font-extrabold text-center tracking-[-2px] leading-none px-8 pt-14">
+                  get
+                  <span tw="text-[#e11d48]">actions</span>.dev
+                </h1>
               </div>
             </div>
           </div>
