@@ -51,14 +51,14 @@ export default function WorkflowDetails() {
   const loaderData = useLoaderData<typeof loader>();
 
   return (
-    <div className="container w-3/4 flex flex-col gap-8">
+    <div className="lg:container lg:w-3/4 flex flex-col gap-8">
       <div className="flex justify-center">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/">All Workflows</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <BreadcrumbSeparator className="text-primary" />
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1">
@@ -67,11 +67,11 @@ export default function WorkflowDetails() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   {loaderData.categories.map((category) => (
-                    <DropdownMenuItem key={category.id}>
+                    <DropdownMenuItem asChild key={category.id}>
                       <Link
                         prefetch="intent"
                         to={`/${category.id}`}
-                        className="w-full"
+                        className="w-full cursor-pointer hover:bg-midnight/5"
                       >
                         {category.name}
                       </Link>
@@ -80,7 +80,7 @@ export default function WorkflowDetails() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </BreadcrumbItem>
-            <BreadcrumbSeparator />
+            <BreadcrumbSeparator className="text-primary" />
             <BreadcrumbItem>
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1">
@@ -89,11 +89,11 @@ export default function WorkflowDetails() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   {loaderData.workflows.map((workflow) => (
-                    <DropdownMenuItem key={workflow.id}>
+                    <DropdownMenuItem asChild key={workflow.id}>
                       <Link
                         prefetch="intent"
                         to={`/${workflow.id}/details`}
-                        className="w-full"
+                        className="w-full cursor-pointer hover:bg-midnight/5"
                       >
                         {workflow.title}
                       </Link>

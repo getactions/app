@@ -67,9 +67,7 @@ function Instructions({ workflow }: Props) {
         <h3 className="font-bold text-md text-primary">Install</h3>
 
         <div className="text-sm rounded-lg border flex flex-col lg:flex-row justify-between items-center gap-4 px-4 py-2">
-          <pre className="whitespace-break-spaces">
-            {workflow.installCommand}
-          </pre>
+          <pre className="whitespace-pre-line">{workflow.installCommand}</pre>
 
           <div className="flex gap-2">
             <CopyIcon
@@ -107,7 +105,7 @@ function Instructions({ workflow }: Props) {
 
 export function WorkflowDetailCard({ workflow }: Props) {
   return (
-    <Card className="p-10 shadow-lg">
+    <Card className="lg:p-10 shadow-lg">
       <CardHeader>
         <div className="flex flex-col items-center gap-4">
           <span className="w-10 h-10">
