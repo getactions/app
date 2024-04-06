@@ -67,7 +67,9 @@ function Instructions({ workflow }: Props) {
         <h3 className="font-bold text-md text-primary">Install</h3>
 
         <div className="text-sm rounded-lg border flex flex-col lg:flex-row justify-between items-center gap-4 px-4 py-2">
-          <pre className="whitespace-pre-line">{workflow.installCommand}</pre>
+          <pre className="whitespace-pre-line break-all">
+            {workflow.installCommand}
+          </pre>
 
           <div className="flex gap-2">
             <CopyIcon
