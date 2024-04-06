@@ -5,7 +5,6 @@ import {
   type MetaFunction,
 } from "@remix-run/react";
 import { Footer } from "~/components/footer";
-import { WorkflowSwitcher } from "~/components/workflow-switcher";
 import { getWorkflowCategories } from "./query";
 
 export async function loader() {
@@ -45,10 +44,6 @@ export default function FrontendLayout() {
         </p>
       </header>
       <main className="container flex-1 flex flex-col gap-20">
-        <div className="flex justify-center">
-          <WorkflowSwitcher categories={loaderData.categories} />
-        </div>
-
         <Outlet />
       </main>
 

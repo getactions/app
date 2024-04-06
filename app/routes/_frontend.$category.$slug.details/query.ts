@@ -1,34 +1,49 @@
-import { findById } from "#workflows";
+import { findByCategory, findById, getCategories } from "#workflows";
 import { err, ok } from "neverthrow";
 import { getBaseUrl } from "~/utils/get-base-url.server";
-import { Workflow } from "./model";
+import { Model } from "./model";
 
-export async function getWorkflow(
+function createInstallCommand(baseUrl: string, workflowId: string) {
+  return `curl -s ${baseUrl}/${workflowId} | sh`;
+}
+
+export async function getModel(
   request: Request,
   category: string,
   slug: string,
 ) {
   const baseUrl = getBaseUrl(request);
-  const resultOfGettingWorkflow = await findById(`${category}/${slug}`);
+  const currentWorkflowDao = findById(`${category}/${slug}`);
+  const categoriesDao = getCategories();
 
-  if (resultOfGettingWorkflow.isErr()) {
-    return err(resultOfGettingWorkflow.error);
-  }
+  const currentCategoryDao = categoriesDao.find((c) => c.id === category);
 
-  const dao = resultOfGettingWorkflow.value;
+  const workflowDaos = findByCategory(category);
 
-  const workflow = Workflow.safeParse({
-    id: dao.id,
-    category: dao.category,
-    name: dao.name,
-    title: dao.title,
-    readme: dao.readme,
-    installCommand: `curl -s ${baseUrl}/${dao.id} | bash`,
+  const model = Model.safeParse({
+    currentCategory: currentCategoryDao,
+    categories: categoriesDao,
+    currentWorkflow: {
+      id: currentWorkflowDao.id,
+      category: currentWorkflowDao.category,
+      name: currentWorkflowDao.name,
+      title: currentWorkflowDao.title,
+      readme: currentWorkflowDao.readme,
+      installCommand: createInstallCommand(baseUrl, currentWorkflowDao.id),
+    },
+    workflows: workflowDaos.map((dao) => ({
+      id: dao.id,
+      category: dao.category,
+      name: dao.name,
+      title: dao.title,
+      readme: dao.readme,
+      installCommand: createInstallCommand(baseUrl, dao.id),
+    })),
   });
 
-  if (!workflow.success) {
-    return err(new Error(`failed to prepare view model: ${workflow.error}`));
+  if (!model.success) {
+    return err(new Error(`failed to prepare view model: ${model.error}`));
   }
 
-  return ok(workflow.data);
+  return ok(model.data);
 }

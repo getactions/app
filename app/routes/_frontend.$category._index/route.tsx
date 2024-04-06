@@ -1,7 +1,8 @@
 import { getCategories } from "#workflows";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Link, Outlet, json, redirect, useLoaderData } from "@remix-run/react";
+import { Link, json, redirect, useLoaderData } from "@remix-run/react";
 import { WorkflowCard } from "~/components/workflow-card";
+import { WorkflowSwitcher } from "~/components/workflow-switcher";
 import { getWorkflows } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ params, data }) => {
@@ -41,7 +42,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     (category) => category.id === requestedCategory,
   );
 
-  return json({ category, workflows });
+  return json({ category, categories, workflows });
 }
 
 export default function Index() {
@@ -49,6 +50,9 @@ export default function Index() {
 
   return (
     <>
+      <div className="flex justify-center">
+        <WorkflowSwitcher categories={loaderData.categories} />
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {loaderData.workflows.map((workflow) => (
           <Link
@@ -66,7 +70,6 @@ export default function Index() {
           </Link>
         ))}
       </div>
-      <Outlet />
     </>
   );
 }

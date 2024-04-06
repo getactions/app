@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-export const Workflow = z.object({
+const Category = z.object({ id: z.string(), name: z.string() });
+
+const Workflow = z.object({
   id: z.string(),
   category: z.string(),
   name: z.string(),
@@ -9,4 +11,11 @@ export const Workflow = z.object({
   installCommand: z.string(),
 });
 
-export type Workflow = z.infer<typeof Workflow>;
+export const Model = z.object({
+  currentCategory: Category,
+  categories: z.array(Category),
+  currentWorkflow: Workflow,
+  workflows: z.array(Workflow),
+});
+
+export type Model = z.infer<typeof Model>;

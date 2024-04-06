@@ -1,4 +1,3 @@
-import { ok } from "neverthrow";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -113,19 +112,18 @@ const workflows = result
   .map((workflows) => workflows)
   .reduce((acc, workflow) => Object.assign(acc, workflow), {});
 
-export async function getCategories() {
+export function getCategories() {
   return categories;
 }
 
-export async function findById(id: string) {
-  return ok(workflows[id]);
+export function findById(id: string) {
+  return workflows[id];
 }
 
-export async function findByCategory(category: string) {
+export function findByCategory(category: string) {
   const workflowsInCategory = Object.keys(workflows)
-
     .filter((id) => workflows[id].category === category)
     .map((id) => workflows[id]);
 
-  return ok(workflowsInCategory);
+  return workflowsInCategory;
 }
