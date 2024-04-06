@@ -5,6 +5,7 @@ import {
   type MetaFunction,
 } from "@remix-run/react";
 import { Footer } from "~/components/footer";
+import { Logo } from "~/components/logo";
 import { getWorkflowCategories } from "./query";
 
 export async function loader() {
@@ -31,9 +32,8 @@ export default function FrontendLayout() {
   return (
     <div className="h-screen flex flex-col gap-24">
       <header className="container flex flex-col gap-4 pt-16">
-        <h1 className="leading-none text-midnight text-center font-extrabold text-2xl tracking-tight">
-          get<span className="text-primary">actions</span>
-        </h1>
+        <Logo />
+
         <h2 className="text-midnight text-center text-4xl font-extrabold tracking-tight">
           Easy to use GitHub Actions Starter Workflows
         </h2>
