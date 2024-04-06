@@ -34,16 +34,16 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     },
   });
 
-  console.log("HEADERS");
-  console.log(request.headers);
-
   const baseUrl = getBaseUrl(request);
 
   const domain = new URL(baseUrl).host;
 
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
-    headers: request.headers,
+    headers: {
+      ...request.headers,
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
       domain,
