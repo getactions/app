@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { Link, json, useLoaderData } from "@remix-run/react";
+import { NavLink, json, useLoaderData } from "@remix-run/react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { WorkflowDetailCard } from "~/components/workflow-detail-card";
+import { cn } from "~/utils/cn";
 import { getModel } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -68,13 +69,15 @@ export default function WorkflowDetails() {
                 <DropdownMenuContent align="start">
                   {loaderData.categories.map((category) => (
                     <DropdownMenuItem asChild key={category.id}>
-                      <Link
+                      <NavLink
                         prefetch="intent"
                         to={`/${category.id}`}
-                        className="w-full cursor-pointer hover:bg-midnight/5"
+                        className={cn(
+                          "w-full cursor-pointer hover:bg-midnight/5 [&.active]:text-primary",
+                        )}
                       >
                         {category.name}
-                      </Link>
+                      </NavLink>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
@@ -90,13 +93,15 @@ export default function WorkflowDetails() {
                 <DropdownMenuContent align="start">
                   {loaderData.workflows.map((workflow) => (
                     <DropdownMenuItem asChild key={workflow.id}>
-                      <Link
+                      <NavLink
                         prefetch="intent"
                         to={`/${workflow.id}/details`}
-                        className="w-full cursor-pointer hover:bg-midnight/5"
+                        className={cn(
+                          "w-full cursor-pointer hover:bg-midnight/5 [&.active]:text-primary",
+                        )}
                       >
                         {workflow.title}
-                      </Link>
+                      </NavLink>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenuContent>
