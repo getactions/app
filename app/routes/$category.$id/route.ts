@@ -1,9 +1,10 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 
+import { getBaseUrl } from "~/utils/get-base-url.server";
 import { renderInstallScript } from "./install.sh";
 import { getWorkflow } from "./query";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
   const id = String(params.id);
   const category = String(params.category);
 
@@ -27,9 +28,32 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   const script = renderInstallScript(workflow);
 
-  return new Response(script, {
+  const response = new Response(script, {
     headers: {
       "Content-Type": "text/x-sh",
     },
   });
+
+  console.log("HEADERS");
+  console.log(request.headers);
+
+  const baseUrl = getBaseUrl(request);
+
+  const domain = new URL(baseUrl).host;
+
+  fetch("https://plausible.openformation.io/api/event", {
+    method: "POST",
+    headers: request.headers,
+    body: JSON.stringify({
+      name: "InstallScriptWasDownloaded",
+      domain,
+      url: request.url,
+    }),
+  }).catch((err) => {
+    console.error(
+      `Was unable to track InstallScriptWasDownloaded event to Plausible: ${err}`,
+    );
+  });
+
+  return response;
 }
