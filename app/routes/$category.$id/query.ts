@@ -3,13 +3,7 @@ import { err, ok } from "neverthrow";
 import { Workflow } from "./model";
 
 export async function getWorkflow(id: string) {
-  const result = await findById(id);
-
-  if (result.isErr()) {
-    return err(result.error);
-  }
-
-  const workflow = result.value;
+  const workflow = await findById(id);
 
   if (!workflow) {
     return ok(undefined);
