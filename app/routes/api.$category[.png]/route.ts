@@ -28,8 +28,7 @@ export async function loader(args: LoaderFunctionArgs) {
 
   const resultOfGeneratingImage = await createOgImage({
     title: `${model.name} Workflows`,
-    subtitle:
-      "Jumpstart your next project effortlessly without the hassle of constructing complex GitHub Actions workflows.",
+    subtitle: model.description,
   });
 
   if (resultOfGeneratingImage.isErr()) {

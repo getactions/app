@@ -3,17 +3,65 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, json, redirect, useLoaderData } from "@remix-run/react";
 import { WorkflowCard } from "~/components/workflow-card";
 import { WorkflowSwitcher } from "~/components/workflow-switcher";
+import { getBaseUrl } from "~/utils/get-base-url.server";
 import { getWorkflows } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ params, data }) => {
+  const name = `${data?.category?.name} Workflows - getactions.dev`;
+
   return [
     {
       title: `GitHub Actions Starter Workflows: ${data?.category?.name} Workflows - getactions.dev`,
+    },
+    {
+      name: "description",
+      content: data?.category?.description,
+    },
+    {
+      property: "og:site_name",
+      content: "getactions.dev",
+    },
+    {
+      property: "og:type",
+      content: "article",
+    },
+    {
+      property: "og:title",
+      content: name,
+    },
+    {
+      property: "og:description",
+      content: data?.category?.description,
+    },
+    {
+      property: "og:url",
+      content: `${data?.baseUrl}/${data?.category?.id}`,
+    },
+    {
+      property: "og:image",
+      content: `${data?.baseUrl}/api/${data?.category?.id}.png`,
+    },
+    {
+      property: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      property: "twitter:title",
+      content: name,
+    },
+    {
+      property: "twitter:description",
+      content: data?.category?.description,
+    },
+    {
+      property: "twitter:image",
+      content: `${data?.baseUrl}/api/${data?.category?.id}.png`,
     },
   ];
 };
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
+  const baseUrl = getBaseUrl(request);
   const requestedCategory = String(params.category);
 
   if (!requestedCategory) {
@@ -42,7 +90,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     (category) => category.id === requestedCategory,
   );
 
-  return json({ category, categories, workflows });
+  return json({ baseUrl, category, categories, workflows });
 }
 
 export default function Index() {

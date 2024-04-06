@@ -8,6 +8,7 @@ export async function getModel(category: string) {
   const model = Model.safeParse({
     id: dao?.id,
     name: dao?.name,
+    description: dao?.description,
   });
 
   if (!model.success) {

@@ -56,6 +56,7 @@ const categories = categoryDirectories.map((categoryDirectory) => {
   const category = JSON.parse(contents) as Readonly<{
     id: string;
     name: string;
+    description: string;
   }>;
 
   return category;

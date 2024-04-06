@@ -21,6 +21,8 @@ import { getBaseUrl } from "~/utils/get-base-url.server";
 import { getModel } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  const name = `${data?.currentWorkflow.title} - getactions.dev`;
+
   return [
     {
       title: `GitHub Actions Starter Workflows: ${data?.currentWorkflow.title} - getactions.dev`,
@@ -39,7 +41,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     },
     {
       property: "og:title",
-      content: data?.currentWorkflow.title,
+      content: name,
     },
     {
       property: "og:description",
@@ -59,7 +61,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     },
     {
       property: "twitter:title",
-      content: data?.currentWorkflow.title,
+      content: name,
     },
     {
       property: "twitter:description",

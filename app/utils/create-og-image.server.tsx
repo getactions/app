@@ -98,7 +98,7 @@ export function makeGenerateOgImage() {
         >
           <div tw="flex items-start justify-start h-full">
             <div tw="flex flex-col justify-between w-full h-full p-4">
-              <div tw="flex flex-col bg-white/70 h-full rounded-3xl justify-center">
+              <div tw="flex flex-col bg-white/90 h-full rounded-3xl justify-center">
                 <h2 tw="flex justify-center text-7xl font-extrabold opacity-90 tracking-tight leading-tight text-center px-10">
                   {request.title}
                 </h2>
