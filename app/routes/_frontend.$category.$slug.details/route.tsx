@@ -17,6 +17,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { WorkflowDetailCard } from "~/components/workflow-detail-card";
 import { cn } from "~/utils/cn";
+import { getBaseUrl } from "~/utils/get-base-url.server";
 import { getModel } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -24,10 +25,55 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     {
       title: `GitHub Actions Starter Workflows: ${data?.currentWorkflow.title} - getactions.dev`,
     },
+    {
+      name: "description",
+      content: data?.currentWorkflow.description,
+    },
+    {
+      property: "og:site_name",
+      content: "getactions.dev",
+    },
+    {
+      property: "og:type",
+      content: "article",
+    },
+    {
+      property: "og:title",
+      content: data?.currentWorkflow.title,
+    },
+    {
+      property: "og:description",
+      content: data?.currentWorkflow.description,
+    },
+    {
+      property: "og:url",
+      content: `${data?.baseUrl}/${data?.currentWorkflow.id}/details`,
+    },
+    {
+      property: "og:image",
+      content: `${data?.baseUrl}/api/${data?.currentWorkflow.id}.png`,
+    },
+    {
+      property: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      property: "twitter:title",
+      content: data?.currentWorkflow.title,
+    },
+    {
+      property: "twitter:description",
+      content: data?.currentWorkflow.description,
+    },
+    {
+      property: "twitter:image",
+      content: `${data?.baseUrl}/api/${data?.currentWorkflow.id}.png`,
+    },
   ];
 };
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
+  const baseUrl = getBaseUrl(request);
   const category = String(params.category);
   const slug = String(params.slug);
 
@@ -45,7 +91,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const model = result.value;
 
-  return json(model);
+  return json({ baseUrl, ...model });
 }
 
 export default function WorkflowDetails() {
