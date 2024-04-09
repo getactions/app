@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
-    "dev": "remix vite:dev",
+    "populate-workflows": "bun run ./scripts/populate-workflows.ts",
+    "dev": "bun run dev:populate-workflows && remix vite:dev",
     "lint": "biome check ./app",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
@@ -41,6 +42,7 @@
     "@biomejs/biome": "1.6.4",
     "@flydotio/dockerfile": "latest",
     "@remix-run/dev": "^2.8.1",
+    "@types/bun": "^1.0.12",
     "@types/common-tags": "^1.8.4",
     "@types/react": "^18.2.72",
     "@types/react-dom": "^18.2.22",

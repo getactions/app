@@ -1,5 +1,6 @@
-import { getCategories } from "#workflows";
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+
+import { getCategories } from "~/utils/workflows.server";
 import { json, redirect, useLoaderData } from "@remix-run/react";
 import { WorkflowCards } from "~/components/workflow-cards";
 import { WorkflowSwitcher } from "~/components/workflow-switcher";

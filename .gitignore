@@ -4,5 +4,10 @@ node_modules
 /.cache
 /build
 /public/build
+/public/logos
 .env
 .vite.config.ts.timestamp*
+workflows/*
+!workflows/index.ts
+
+.tmp/

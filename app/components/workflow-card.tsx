@@ -6,12 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { WorkflowIcon } from "./workflow-icon";
+import { WorkflowLogo } from "./workflow-logo";
 
 type Props = Readonly<{
   workflow: Readonly<{
     id: string;
     name: string;
+    logo: string;
 
     title: string;
     description: string;
@@ -24,7 +25,7 @@ export function WorkflowCard({ workflow, footer }: Props) {
     <Card key={workflow.id} className="hover:shadow-xl transition-shadow">
       <CardHeader>
         <div className="w-10 h-10">
-          <WorkflowIcon id={workflow.id} name={workflow.name} />
+          <WorkflowLogo title={workflow.title} logo={workflow.logo} />
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">

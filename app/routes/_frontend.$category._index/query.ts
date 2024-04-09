@@ -1,4 +1,4 @@
-import { findByCategory } from "#workflows";
+import { findByCategory } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
 import { Workflows } from "./model";
 
@@ -9,6 +9,7 @@ export async function getWorkflows(request: Request, category: string) {
     daos.map((dao) => ({
       id: dao.id,
       name: dao.name,
+      logo: dao.logo,
       category: category,
       title: dao.title,
       description: dao.description,

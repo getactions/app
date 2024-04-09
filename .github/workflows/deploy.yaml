@@ -4,14 +4,25 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - uses: oven-sh/setup-bun@v1
       - uses: superfly/flyctl-actions/setup-flyctl@1.5
+
+      - name: Install dependencies
+        run: bun i --frozen-lockfile
+      
+      - name: Populate latest workflows
+        run: bun run populate-workflows
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fly!
         run: |

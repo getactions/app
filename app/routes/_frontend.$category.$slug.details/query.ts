@@ -1,4 +1,4 @@
-import { findByCategory, findById, getCategories } from "#workflows";
+import { findByCategory, findById, getCategories } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
 import { getBaseUrl } from "~/utils/get-base-url.server";
 import { Model } from "./model";
@@ -28,6 +28,7 @@ export async function getModel(
       category: currentWorkflowDao.category,
       name: currentWorkflowDao.name,
       description: currentWorkflowDao.description,
+      logo: currentWorkflowDao.logo,
       title: currentWorkflowDao.title,
       readme: currentWorkflowDao.readme,
       installCommand: createInstallCommand(baseUrl, currentWorkflowDao.id),
@@ -36,6 +37,7 @@ export async function getModel(
       id: dao.id,
       category: dao.category,
       name: dao.name,
+      logo: dao.logo,
       description: dao.description,
       title: dao.title,
       readme: dao.readme,
