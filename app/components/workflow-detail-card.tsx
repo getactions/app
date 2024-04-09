@@ -110,7 +110,7 @@ export function WorkflowDetailCard({ workflow }: Props) {
     <Card className="lg:p-10 shadow-lg">
       <CardHeader>
         <div className="flex flex-col items-center gap-4">
-          <span className="w-10 h-10">
+          <span className="w-12 h-12">
             <WorkflowIcon id={workflow.id} name={workflow.name} />
           </span>
 
