@@ -38,7 +38,7 @@ function Instructions({ workflow }: Props) {
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
         <Markdown
-          className="text-muted-foreground"
+          className="text-gray-500"
           components={{
             a: ({ node, children, ...props }) => (
               <Link

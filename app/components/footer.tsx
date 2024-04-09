@@ -8,7 +8,7 @@ export function Footer() {
 
       <div className="container flex flex-col pt-8 py-4">
         <div className="text-sm leading-tighter text-center">
-          <span className="opacity-50">Proudly built at</span>{" "}
+          <span className="opacity-80">Proudly built at</span>{" "}
           <Link to="https://openformation.io" target="_blank">
             <strong className="font-extrabold">Open Formation</strong>
             <strong className="font-extrabold text-primary">.</strong>
@@ -16,7 +16,7 @@ export function Footer() {
         </div>
       </div>
 
-      <p className="text-center text-xs font-medium text-white/30">
+      <p className="text-center text-xs font-medium text-white/50">
         © Copyright, {new Date().getFullYear()} - MIT Licensed -{" "}
         <Link
           className="hover:text-primary cursor-pointer"

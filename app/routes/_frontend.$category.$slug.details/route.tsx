@@ -110,7 +110,10 @@ export default function WorkflowDetails() {
             <BreadcrumbSeparator className="text-primary" />
             <BreadcrumbItem>
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1">
+                <DropdownMenuTrigger
+                  className="flex items-center gap-1"
+                  aria-label={loaderData.currentCategory.name}
+                >
                   {loaderData.currentCategory.name}
                   <ChevronDownIcon />
                 </DropdownMenuTrigger>
