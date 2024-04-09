@@ -12,7 +12,6 @@ import fs from "node:fs/promises";
  *
  */
 
-const CWD = $`pwd`;
 const WORKFLOWS_DIR = "./workflows";
 const LOGOS_DIR = "./public/logos";
 
@@ -41,6 +40,8 @@ const headers = {
 const release = await fetch("https://api.github.com/repos/getactions/getactions/releases/latest", {
   headers 
 }).then(response => response.json())
+
+console.log(release)
 
 // Download the latest release
 await fetch(release.tarball_url, {

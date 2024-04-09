@@ -2,7 +2,8 @@ name: "Deploy to fly.io"
 on:
   push:
     branches:
-      - main
+      #- main
+      - ci-debugging
 
 permissions:
   contents: read
