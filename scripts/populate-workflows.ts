@@ -12,7 +12,6 @@ import fs from "node:fs/promises";
  *
  */
 
-const CWD = $`pwd`;
 const WORKFLOWS_DIR = "./workflows";
 const LOGOS_DIR = "./public/logos";
 
@@ -32,7 +31,6 @@ await $`mkdir -p ${TMP_DIR}`;
 const fullCartridgePath = path.join(TMP_DIR, cartridgeFilename)
 
 const headers = {
-    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28"
 }
