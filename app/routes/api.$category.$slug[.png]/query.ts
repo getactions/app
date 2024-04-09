@@ -1,4 +1,4 @@
-import { findById, getCategories } from "#workflows";
+import { findById, getCategories } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
 import { getBaseUrl } from "~/utils/get-base-url.server";
 import { Model } from "./model";

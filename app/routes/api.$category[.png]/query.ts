@@ -1,4 +1,4 @@
-import { getCategories } from "#workflows";
+import { getCategories } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
 import { Model } from "./model";
 

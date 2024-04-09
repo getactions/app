@@ -9,3 +9,5 @@ node_modules
 .vite.config.ts.timestamp*
 workflows/*
 !workflows/index.ts
+
+.tmp/
