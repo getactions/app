@@ -3,12 +3,13 @@ import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { Card, CardContent, CardHeader } from "./ui/card";
-import { WorkflowIcon } from "./workflow-icon";
+import { WorkflowLogo } from "./workflow-logo";
 
 type Props = Readonly<{
   workflow: Readonly<{
     id: string;
     name: string;
+    logo: string;
     title: string;
     readme: string;
     installCommand: string;
@@ -111,7 +112,7 @@ export function WorkflowDetailCard({ workflow }: Props) {
       <CardHeader>
         <div className="flex flex-col items-center gap-4">
           <span className="w-12 h-12">
-            <WorkflowIcon id={workflow.id} name={workflow.name} />
+            <WorkflowLogo title={workflow.title} logo={workflow.logo} />
           </span>
 
           <h2 className="text-3xl font-bold text-center text-midnight">

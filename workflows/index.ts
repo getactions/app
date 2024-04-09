@@ -7,6 +7,7 @@ import { z } from "zod";
 const Workflow = z.object({
   id: z.string(),
   name: z.string(),
+  logo: z.string(),
   filename: z.string(),
   category: z.string(),
 
@@ -83,6 +84,7 @@ const result = categories.flatMap((category) => {
       title: string;
       description: string;
       readme: string;
+      logo: string;
       secrets: Readonly<{
         [name: string]: { description: string };
       }>;
@@ -94,6 +96,7 @@ const result = categories.flatMap((category) => {
     const workflow = Workflow.parse({
       id,
       name,
+      logo: `${parsed.attributes.logo}.svg`,
       category: category.id,
       filename,
 

@@ -5,6 +5,7 @@ type Props = Readonly<{
   workflows: ReadonlyArray<{
     id: string;
     name: string;
+    logo: string;
     description: string;
     category: string;
     title: string;

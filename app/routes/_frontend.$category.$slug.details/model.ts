@@ -6,6 +6,7 @@ const Workflow = z.object({
   id: z.string(),
   category: z.string(),
   name: z.string(),
+  logo: z.string(),
   description: z.string(),
   title: z.string(),
   readme: z.string(),

@@ -9,6 +9,7 @@ export async function getWorkflows(request: Request, category: string) {
     daos.map((dao) => ({
       id: dao.id,
       name: dao.name,
+      logo: dao.logo,
       category: category,
       title: dao.title,
       description: dao.description,

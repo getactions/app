@@ -20,7 +20,7 @@ export function Footer() {
         © Copyright, {new Date().getFullYear()} - MIT Licensed -{" "}
         <Link
           className="hover:text-primary cursor-pointer"
-          to="https://github.com/openformation/getactions"
+          to="https://github.com/getactions/getactions"
           target="_blank"
         >
           Source
