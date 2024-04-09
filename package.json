@@ -38,7 +38,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.6.3",
+    "@biomejs/biome": "1.6.4",
     "@flydotio/dockerfile": "latest",
     "@remix-run/dev": "^2.8.1",
     "@types/common-tags": "^1.8.4",
