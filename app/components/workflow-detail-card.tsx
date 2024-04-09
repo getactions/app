@@ -88,14 +88,14 @@ function Instructions({ workflow }: Props) {
           <Link
             className="text-primary"
             target="_blank"
-            to={`https://github.com/openformation/getactions/tree/main/workflows/${workflow.id}.yaml`}
+            to={`https://github.com/getactions/getactions/tree/main/${workflow.id}.yaml`}
           >
             source
           </Link>{" "}
           of the template in our{" "}
           <Link
             className="text-primary"
-            to="https://github.com/openformation/getactions"
+            to="https://github.com/getactions/getactions"
           >
             repository
           </Link>

@@ -2,8 +2,7 @@ name: "Deploy to fly.io"
 on:
   push:
     branches:
-      #- main
-      - ci-debugging
+      - main
 
 jobs:
   deploy:
