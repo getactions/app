@@ -5,9 +5,6 @@ on:
       #- main
       - ci-debugging
 
-permissions:
-  contents: read
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,8 +19,6 @@ jobs:
       
       - name: Populate latest workflows
         run: bun run populate-workflows
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Fly!
         run: |

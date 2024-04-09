@@ -31,7 +31,6 @@ await $`mkdir -p ${TMP_DIR}`;
 const fullCartridgePath = path.join(TMP_DIR, cartridgeFilename)
 
 const headers = {
-    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28"
 }
@@ -40,8 +39,6 @@ const headers = {
 const release = await fetch("https://api.github.com/repos/getactions/getactions/releases/latest", {
   headers 
 }).then(response => response.json())
-
-console.log(release)
 
 // Download the latest release
 await fetch(release.tarball_url, {
