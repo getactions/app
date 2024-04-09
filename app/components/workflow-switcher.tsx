@@ -29,7 +29,13 @@ export function WorkflowSwitcher({ categories }: Props) {
     ),
   );
 
-  function handleNavigation(categoryId: string) {
+  function handleSelect(categoryId: string) {
+    const selectedCategory = categories.find(
+      (category) => category.id === categoryId,
+    );
+
+    setSelectedCategory(selectedCategory);
+
     navigate(`/${categoryId}`);
   }
 
@@ -37,8 +43,8 @@ export function WorkflowSwitcher({ categories }: Props) {
     <div className="flex flex-col lg:flex-row items-center gap-4 text-xl bg-white shadow-xl border-[1px] rounded-lg lg:rounded-full py-6 px-14">
       <p>I need a </p>
 
-      <Select onValueChange={handleNavigation}>
-        <SelectTrigger className="w-[200px]">
+      <Select onValueChange={handleSelect} value={selectedCategory?.id}>
+        <SelectTrigger className="w-[200px]" aria-label="Switch workflow type">
           <SelectValue placeholder={selectedCategory?.name} />
         </SelectTrigger>
         <SelectContent className="text-2xl">
