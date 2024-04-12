@@ -11,13 +11,19 @@ const Workflow = z.object({
   title: z.string(),
   readme: z.string(),
   installCommand: z.string(),
+  source: z.string(),
 });
 
 export const Model = z.object({
   currentCategory: Category,
   categories: z.array(Category),
   currentWorkflow: Workflow,
-  workflows: z.array(Workflow),
+  otherWorkflowsInCurrentCategory: z.array(
+    Workflow.pick({
+      id: true,
+      title: true,
+    }),
+  ),
 });
 
 export type Model = z.infer<typeof Model>;

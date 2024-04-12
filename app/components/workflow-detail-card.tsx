@@ -2,8 +2,10 @@ import { CopyIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
+import { InlineCode } from "./inline-code";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { WorkflowLogo } from "./workflow-logo";
+import { WorkflowSourceDialog } from "./workflow-source-dialog";
 
 type Props = Readonly<{
   workflow: Readonly<{
@@ -13,6 +15,7 @@ type Props = Readonly<{
     title: string;
     readme: string;
     installCommand: string;
+    source: string;
   }>;
 }>;
 
@@ -51,9 +54,7 @@ function Instructions({ workflow }: Props) {
               </Link>
             ),
             code: ({ node, children, ...props }) => (
-              <code className="border-midnight/50 border rounded text-xs text-midnight px-1.5 py-0.5">
-                {children}
-              </code>
+              <InlineCode>{children}</InlineCode>
             ),
             p: ({ node, children }) => (
               <p className="py-2 leading-loose">{children}</p>
@@ -108,8 +109,15 @@ function Instructions({ workflow }: Props) {
 
 export function WorkflowDetailCard({ workflow }: Props) {
   return (
-    <Card className="lg:p-10 shadow-lg">
-      <CardHeader>
+    <Card className="shadow-lg">
+      <CardHeader className="flex flex-col gap-8">
+        <div className="flex justify-end">
+          <WorkflowSourceDialog
+            title={workflow.title}
+            logo={workflow.logo}
+            source={workflow.source}
+          />
+        </div>
         <div className="flex flex-col items-center gap-4">
           <span className="w-12 h-12">
             <WorkflowLogo title={workflow.title} logo={workflow.logo} />
@@ -120,7 +128,7 @@ export function WorkflowDetailCard({ workflow }: Props) {
           </h2>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="lg:p-10 ">
         <Instructions workflow={workflow} />
       </CardContent>
     </Card>

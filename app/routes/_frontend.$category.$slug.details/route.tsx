@@ -105,7 +105,7 @@ export default function WorkflowDetails() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">All Workflows</BreadcrumbLink>
+              <BreadcrumbLink href="/">Workflows</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="text-primary" />
             <BreadcrumbItem>
@@ -142,19 +142,21 @@ export default function WorkflowDetails() {
                   <ChevronDownIcon />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
-                  {loaderData.workflows.map((workflow) => (
-                    <DropdownMenuItem asChild key={workflow.id}>
-                      <NavLink
-                        prefetch="intent"
-                        to={`/${workflow.id}/details`}
-                        className={cn(
-                          "w-full cursor-pointer hover:bg-midnight/5 [&.active]:text-primary",
-                        )}
-                      >
-                        {workflow.title}
-                      </NavLink>
-                    </DropdownMenuItem>
-                  ))}
+                  {loaderData.otherWorkflowsInCurrentCategory.map(
+                    (workflow) => (
+                      <DropdownMenuItem asChild key={workflow.id}>
+                        <NavLink
+                          prefetch="intent"
+                          to={`/${workflow.id}/details`}
+                          className={cn(
+                            "w-full cursor-pointer hover:bg-midnight/5 [&.active]:text-primary",
+                          )}
+                        >
+                          {workflow.title}
+                        </NavLink>
+                      </DropdownMenuItem>
+                    ),
+                  )}
                 </DropdownMenuContent>
               </DropdownMenu>
             </BreadcrumbItem>

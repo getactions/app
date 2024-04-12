@@ -1,6 +1,10 @@
-import { findByCategory, findById, getCategories } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
 import { getBaseUrl } from "~/utils/get-base-url.server";
+import {
+  findByCategory,
+  findById,
+  getCategories,
+} from "~/utils/workflows.server";
 import { Model } from "./model";
 
 function createInstallCommand(baseUrl: string, workflowId: string) {
@@ -31,17 +35,12 @@ export async function getModel(
       logo: currentWorkflowDao.logo,
       title: currentWorkflowDao.title,
       readme: currentWorkflowDao.readme,
+      source: currentWorkflowDao.contents,
       installCommand: createInstallCommand(baseUrl, currentWorkflowDao.id),
     },
-    workflows: workflowDaos.map((dao) => ({
+    otherWorkflowsInCurrentCategory: workflowDaos.map((dao) => ({
       id: dao.id,
-      category: dao.category,
-      name: dao.name,
-      logo: dao.logo,
-      description: dao.description,
       title: dao.title,
-      readme: dao.readme,
-      installCommand: createInstallCommand(baseUrl, dao.id),
     })),
   });
 

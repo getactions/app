@@ -6,7 +6,7 @@
   "scripts": {
     "build": "remix vite:build",
     "populate-workflows": "bun run ./scripts/populate-workflows.ts",
-    "dev": "bun run dev:populate-workflows && remix vite:dev",
+    "dev": "bun run populate-workflows && remix vite:dev",
     "lint": "biome check ./app",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
@@ -34,7 +34,7 @@
     "satori": "^0.10.13",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "usehooks-ts": "^3.0.2",
+    "usehooks-ts": "^3.1.0",
     "vaul": "^0.9.0",
     "zod": "^3.22.4"
   },
