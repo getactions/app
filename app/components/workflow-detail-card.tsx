@@ -53,6 +53,9 @@ function Instructions({ workflow }: Props) {
                 {children}
               </Link>
             ),
+            ol: ({ node, children }) => (
+              <ol className="list-decimal list-outside px-8">{children}</ol>
+            ),
             code: ({ node, children, ...props }) => (
               <InlineCode>{children}</InlineCode>
             ),

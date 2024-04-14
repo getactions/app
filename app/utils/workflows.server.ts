@@ -41,6 +41,7 @@ const __dirname = "./workflows";
 const categoryDirectories = fs
   .readdirSync(__dirname, { withFileTypes: true })
   .filter((dirent) => dirent.isDirectory())
+  .filter((dirent) => !dirent.name.startsWith("."))
   .map((dirent) => dirent.name);
 
 const categories = categoryDirectories.map((categoryDirectory) => {
