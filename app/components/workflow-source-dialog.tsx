@@ -23,8 +23,8 @@ import {
 import { WorkflowLogo } from "./workflow-logo";
 
 type Props = Readonly<{
+  id: string;
   title: string;
-  logo: string;
   source: string;
 }>;
 
@@ -51,11 +51,11 @@ function Code({ source, className }: Props & Readonly<{ className: string }>) {
   );
 }
 
-function Headline({ title, logo }: Pick<Props, "title" | "logo">) {
+function Headline({ id, title }: Pick<Props, "id" | "title">) {
   return (
     <div className="flex items-start gap-2 lg:gap-4">
       <span className="w-8 h-8">
-        <WorkflowLogo title={title} logo={logo} />
+        <WorkflowLogo id={id} title={title} />
       </span>
       <h2 className="text-lg lg:text-2xl font-bold">{title}</h2>
     </div>
@@ -66,7 +66,7 @@ export function WorkflowSourceDialog(props: Props) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  const { title, logo } = props;
+  const { id, title } = props;
 
   if (isDesktop) {
     return (
@@ -79,7 +79,7 @@ export function WorkflowSourceDialog(props: Props) {
 
         <DialogContent className="p-8 max-w-[1200px]">
           <DialogTitle asChild>
-            <Headline title={title} logo={logo} />
+            <Headline id={id} title={title} />
           </DialogTitle>
           <DialogDescription>
             When you utilize the installation script, this workflow file will be
@@ -104,7 +104,7 @@ export function WorkflowSourceDialog(props: Props) {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left sm:py-1">
-          <Headline title={title} logo={logo} />
+          <Headline id={id} title={title} />
         </DrawerHeader>
 
         <div className="py-2 px-4">

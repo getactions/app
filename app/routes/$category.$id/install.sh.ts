@@ -1,5 +1,6 @@
-import { source } from "common-tags";
 import type { Workflow } from "./model";
+
+import { source } from "common-tags";
 
 export function renderInstallScript(workflow: Workflow) {
   return source`
@@ -73,11 +74,11 @@ function print_table {
 workflowBasePath=$(pwd)/.github/workflows
 mkdir -p $workflowBasePath
 
-printf "\n\${gray}Name of the workflow file? (${workflow.filename}) \${reset}\n"
+printf "\n\${gray}Name of the workflow file? (${workflow.name}.yaml) \${reset}\n"
 read filename </dev/tty
 
 if [ -z "$filename" ]; then
-  filename=${workflow.filename}
+  filename=${workflow.name}.yaml
 fi
 
 if [ -f "$workflowBasePath/\${filename}" ]; then

@@ -113,14 +113,14 @@ export function WorkflowDetailCard({ workflow }: Props) {
       <CardHeader className="flex flex-col gap-8">
         <div className="flex justify-end">
           <WorkflowSourceDialog
+            id={workflow.id}
             title={workflow.title}
-            logo={workflow.logo}
             source={workflow.source}
           />
         </div>
         <div className="flex flex-col items-center gap-4">
           <span className="w-12 h-12">
-            <WorkflowLogo title={workflow.title} logo={workflow.logo} />
+            <WorkflowLogo id={workflow.id} title={workflow.title} />
           </span>
 
           <h2 className="text-3xl font-bold text-center text-midnight">

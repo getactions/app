@@ -6,10 +6,9 @@ import { z } from "zod";
 
 const Workflow = z.object({
   id: z.string(),
+  category: z.string(),
   name: z.string(),
   logo: z.string(),
-  filename: z.string(),
-  category: z.string(),
 
   title: z.string(),
   description: z.string(),
@@ -37,10 +36,6 @@ const Workflow = z.object({
 
 type Workflow = z.infer<typeof Workflow>;
 
-const Workflows = z.record(z.string(), Workflow);
-
-type Workflows = z.infer<typeof Workflows>;
-
 const __dirname = "./workflows";
 
 const categoryDirectories = fs
@@ -50,15 +45,16 @@ const categoryDirectories = fs
 
 const categories = categoryDirectories.map((categoryDirectory) => {
   const contents = fs.readFileSync(
-    path.join(__dirname, categoryDirectory, "category.json"),
+    path.join(__dirname, categoryDirectory, "readme.md"),
     "utf-8",
   );
 
-  const category = JSON.parse(contents) as Readonly<{
-    id: string;
-    name: string;
-    description: string;
-  }>;
+  const parsed =
+    frontmatter<Readonly<{ id: string; name: string; description: string }>>(
+      contents,
+    );
+
+  const category = parsed.attributes;
 
   return category;
 });
@@ -66,50 +62,63 @@ const categories = categoryDirectories.map((categoryDirectory) => {
 const result = categories.flatMap((category) => {
   const categoryDirectory = path.join(__dirname, category.id);
   // REFACTOR: Optimize extension type handling
-  const templates = fs
-    .readdirSync(categoryDirectory)
-    .filter((file) => file.endsWith(".yaml"));
+  const templates = fs.readdirSync(categoryDirectory);
 
-  return templates.map((filename) => {
-    const name = path.basename(filename, ".yaml");
+  return templates
+    .filter((name) =>
+      fs.lstatSync(path.join(categoryDirectory, name)).isDirectory(),
+    )
+    .map((name) => {
+      const id = `${category.id}/${name}`;
 
-    const id = `${category.id}/${name}`;
+      const readmeContents = fs.readFileSync(
+        path.join(categoryDirectory, `${name}/readme.md`),
+        "utf-8",
+      );
+      const workflowContents = fs.readFileSync(
+        path.join(categoryDirectory, `${name}/workflow.yaml`),
+        "utf-8",
+      );
 
-    const workflowContents = fs.readFileSync(
-      path.join(categoryDirectory, filename),
-      "utf-8",
-    );
+      const logoContents = fs.readFileSync(
+        path.join(categoryDirectory, `${name}/logo.svg`),
+        "utf-8",
+      );
 
-    const parsed = frontmatter<{
-      title: string;
-      description: string;
-      readme: string;
-      logo: string;
-      secrets: Readonly<{
-        [name: string]: { description: string };
-      }>;
-      parameters?: Readonly<{
-        [name: string]: { description: string };
-      }>;
-    }>(workflowContents);
+      const parsedReadme =
+        frontmatter<
+          Readonly<{
+            title: string;
+            description: string;
+          }>
+        >(readmeContents);
 
-    const workflow = Workflow.parse({
-      id,
-      name,
-      logo: `${parsed.attributes.logo}.svg`,
-      category: category.id,
-      filename,
+      const parsedWorkflow = frontmatter<{
+        secrets: Readonly<{
+          [name: string]: { description: string };
+        }>;
+        parameters?: Readonly<{
+          [name: string]: { description: string };
+        }>;
+      }>(workflowContents);
 
-      title: parsed.attributes.title,
-      description: parsed.attributes.description,
-      readme: parsed.attributes.readme,
-      secrets: parsed.attributes.secrets,
-      parameters: parsed.attributes.parameters,
-      contents: parsed.body,
+      const workflow = Workflow.parse({
+        id,
+        name,
+        logo: logoContents,
+        category: category.id,
+
+        title: parsedReadme.attributes.title,
+        description: parsedReadme.attributes.description,
+        readme: parsedReadme.body,
+
+        secrets: parsedWorkflow.attributes.secrets,
+        parameters: parsedWorkflow.attributes.parameters,
+        contents: parsedWorkflow.body,
+      });
+
+      return { [id]: workflow } as { [id: string]: Workflow };
     });
-
-    return { [id]: workflow } as { [id: string]: Workflow };
-  });
 });
 
 const workflows = result

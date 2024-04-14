@@ -1,5 +1,5 @@
-import { findById } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
+import { findById } from "~/utils/workflows.server";
 import { Workflow } from "./model";
 
 export async function getWorkflow(id: string) {
@@ -11,9 +11,8 @@ export async function getWorkflow(id: string) {
 
   const model = Workflow.safeParse({
     id: workflow.id,
-    filename: workflow.filename,
-    category: workflow.category,
     name: workflow.name,
+    category: workflow.category,
     description: workflow.description,
     secrets: workflow.secrets,
     parameters: workflow.parameters,

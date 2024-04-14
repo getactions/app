@@ -1,5 +1,5 @@
-import { findByCategory } from "~/utils/workflows.server";
 import { err, ok } from "neverthrow";
+import { findByCategory } from "~/utils/workflows.server";
 import { Workflows } from "./model";
 
 export async function getWorkflows(request: Request, category: string) {

@@ -2,7 +2,6 @@ import { z } from "zod";
 
 export const Workflow = z.object({
   id: z.string(),
-  filename: z.string(),
   category: z.string(),
   name: z.string(),
   description: z.string(),

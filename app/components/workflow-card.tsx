@@ -25,7 +25,7 @@ export function WorkflowCard({ workflow, footer }: Props) {
     <Card key={workflow.id} className="hover:shadow-xl transition-shadow">
       <CardHeader>
         <div className="w-10 h-10">
-          <WorkflowLogo title={workflow.title} logo={workflow.logo} />
+          <WorkflowLogo id={workflow.id} title={workflow.title} />
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
