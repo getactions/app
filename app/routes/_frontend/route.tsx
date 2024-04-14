@@ -1,34 +1,12 @@
-import {
-  Outlet,
-  json,
-  useLoaderData,
-  type MetaFunction,
-} from "@remix-run/react";
+import { Outlet, type MetaFunction } from "@remix-run/react";
 import { Footer } from "~/components/footer";
 import { Logo } from "~/components/logo";
-import { getWorkflowCategories } from "./query";
-
-export async function loader() {
-  const resultOfGettingCategories = await getWorkflowCategories();
-
-  if (resultOfGettingCategories.isErr()) {
-    console.error(resultOfGettingCategories.error);
-
-    throw new Response("Internal Server Error", { status: 500 });
-  }
-
-  const categories = resultOfGettingCategories.value;
-
-  return json({ categories });
-}
 
 export const meta: MetaFunction = () => {
   return [{ title: "GitHub Actions Starter Workflows - getactions.dev" }];
 };
 
 export default function FrontendLayout() {
-  const loaderData = useLoaderData<typeof loader>();
-
   return (
     <div className="h-screen flex flex-col gap-24">
       <header className="container flex flex-col gap-4 pt-16">

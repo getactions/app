@@ -2,6 +2,7 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { NavLink, json, useLoaderData } from "@remix-run/react";
+import { ErrorBoundary } from "~/components/error-boundary";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -19,6 +20,8 @@ import { WorkflowDetailCard } from "~/components/workflow-detail-card";
 import { cn } from "~/utils/cn";
 import { getBaseUrl } from "~/utils/get-base-url.server";
 import { getModel } from "./query";
+
+export { ErrorBoundary };
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
   const name = `${data?.currentWorkflow.title} - getactions.dev`;
@@ -92,6 +95,10 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   }
 
   const model = result.value;
+
+  if (!model) {
+    throw new Response("Not Found", { status: 404 });
+  }
 
   return json({ baseUrl, ...model });
 }

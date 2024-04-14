@@ -1,8 +1,20 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 
+import { ErrorBoundary as ErrorBoundaryContent } from "~/components/error-boundary";
+import { Logo } from "~/components/logo";
 import { getBaseUrl } from "~/utils/get-base-url.server";
 import { renderInstallScript } from "./install.sh";
 import { getWorkflow } from "./query";
+
+export function ErrorBoundary() {
+  return (
+    <div className="flex flex-col gap-8 items-center pt-20">
+      <Logo />
+
+      <ErrorBoundaryContent />
+    </div>
+  );
+}
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const id = String(params.id);
@@ -23,7 +35,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const workflow = workflowResult.value;
 
   if (!workflow) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Response(null, { status: 404 });
   }
 
   const script = renderInstallScript(workflow);

@@ -18,6 +18,11 @@ export async function getModel(
 ) {
   const baseUrl = getBaseUrl(request);
   const currentWorkflowDao = findById(`${category}/${slug}`);
+
+  if (!currentWorkflowDao) {
+    return ok(undefined);
+  }
+
   const categoriesDao = getCategories();
 
   const currentCategoryDao = categoriesDao.find((c) => c.id === category);
