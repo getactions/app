@@ -87,6 +87,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   const categories = await getCategories();
+
   const category = categories.find(
     (category) => category.id === requestedCategory,
   );
@@ -94,7 +95,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return json({ baseUrl, category, categories, workflows });
 }
 
-export default function Index() {
+export default function WorkflowCategoryIndex() {
   const loaderData = useLoaderData<typeof loader>();
 
   return (

@@ -115,32 +115,7 @@ export default function WorkflowDetails() {
               <BreadcrumbLink href="/">Workflows</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator className="text-primary" />
-            <BreadcrumbItem>
-              <DropdownMenu>
-                <DropdownMenuTrigger
-                  className="flex items-center gap-1"
-                  aria-label={loaderData.currentCategory.name}
-                >
-                  {loaderData.currentCategory.name}
-                  <ChevronDownIcon />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start">
-                  {loaderData.categories.map((category) => (
-                    <DropdownMenuItem asChild key={category.id}>
-                      <NavLink
-                        prefetch="intent"
-                        to={`/${category.id}`}
-                        className={cn(
-                          "w-full cursor-pointer hover:bg-midnight/5 [&.active]:text-primary",
-                        )}
-                      >
-                        {category.name}
-                      </NavLink>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </BreadcrumbItem>
+            <BreadcrumbItem>{loaderData.category.name}</BreadcrumbItem>
             <BreadcrumbSeparator className="text-primary" />
             <BreadcrumbItem>
               <DropdownMenu>

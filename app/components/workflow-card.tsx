@@ -1,3 +1,4 @@
+import { Badge } from "./ui/badge";
 import {
   Card,
   CardContent,
@@ -11,9 +12,11 @@ import { WorkflowLogo } from "./workflow-logo";
 type Props = Readonly<{
   workflow: Readonly<{
     id: string;
+    category: Readonly<{
+      id: string;
+      name: string;
+    }>;
     name: string;
-    logo: string;
-
     title: string;
     description: string;
   }>;
@@ -32,7 +35,15 @@ export function WorkflowCard({ workflow, footer }: Props) {
         <CardTitle className="text-xl">{workflow.title}</CardTitle>
         <CardDescription>{workflow.description}</CardDescription>
       </CardContent>
-      <CardFooter className="flex justify-end">{footer}</CardFooter>
+      <CardFooter className="flex justify-between">
+        <>
+          <Badge variant="outline">
+            {workflow.category.emoji} {workflow.category.name}
+          </Badge>
+
+          {footer}
+        </>
+      </CardFooter>
     </Card>
   );
 }

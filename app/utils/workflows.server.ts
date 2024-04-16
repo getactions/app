@@ -139,6 +139,10 @@ export function findById(id: string) {
   return workflows[id];
 }
 
+export function findAll() {
+  return Object.values(workflows);
+}
+
 export function findByCategory(category: string) {
   const workflowsInCategory = Object.keys(workflows)
     .filter((id) => workflows[id].category === category)

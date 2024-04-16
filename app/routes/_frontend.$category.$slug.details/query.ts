@@ -30,8 +30,7 @@ export async function getModel(
   const workflowDaos = findByCategory(category);
 
   const model = Model.safeParse({
-    currentCategory: currentCategoryDao,
-    categories: categoriesDao,
+    category: currentCategoryDao,
     currentWorkflow: {
       id: currentWorkflowDao.id,
       category: currentWorkflowDao.category,

@@ -1,9 +1,9 @@
 import { err, ok } from "neverthrow";
-import { findByCategory, getCategories } from "~/utils/workflows.server";
+import { findAll, getCategories } from "~/utils/workflows.server";
 import { Workflows } from "./model";
 
-export async function getWorkflows(request: Request, category: string) {
-  const daos = findByCategory(category);
+export async function getWorkflows() {
+  const daos = findAll();
 
   const categories = getCategories();
 

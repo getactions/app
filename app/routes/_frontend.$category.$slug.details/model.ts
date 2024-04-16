@@ -14,8 +14,7 @@ const Workflow = z.object({
 });
 
 export const Model = z.object({
-  currentCategory: Category,
-  categories: z.array(Category),
+  category: Category,
   currentWorkflow: Workflow,
   otherWorkflowsInCurrentCategory: z.array(
     Workflow.pick({

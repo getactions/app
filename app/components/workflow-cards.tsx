@@ -5,9 +5,11 @@ type Props = Readonly<{
   workflows: ReadonlyArray<{
     id: string;
     name: string;
-    logo: string;
     description: string;
-    category: string;
+    category: Readonly<{
+      id: string;
+      name: string;
+    }>;
     title: string;
   }>;
 }>;
@@ -16,7 +18,7 @@ export function WorkflowCards(props: Props) {
   return props.workflows.map((workflow) => (
     <Link
       key={workflow.id}
-      to={`/${workflow.category}/${workflow.name}/details`}
+      to={`/${workflow.category.id}/${workflow.name}/details`}
       prefetch="intent"
     >
       <WorkflowCard
