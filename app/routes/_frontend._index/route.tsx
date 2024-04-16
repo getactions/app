@@ -1,5 +1,7 @@
+import { PlusIcon } from "@radix-ui/react-icons";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import { Button } from "~/components/ui/button";
 import { WorkflowCards } from "~/components/workflow-cards";
 import { getWorkflows } from "./query";
 
@@ -23,6 +25,16 @@ export default function Index() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
       <WorkflowCards workflows={loaderData.workflows} />
+      <div className="rounded-sm flex justify-center items-center">
+        <Link
+          to="https://github.com/getactions/getactions?tab=readme-ov-file#-how-do-i-contribute"
+          target="_blank"
+        >
+          <Button className="flex gap-2 text-primary" variant="outline">
+            <PlusIcon className="h-4 w-4 text-primary" /> Add Workflow
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }
