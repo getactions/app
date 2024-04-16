@@ -4,7 +4,7 @@ export const Workflows = z.array(
   z.object({
     id: z.string(),
     category: z.string(),
-    logo: z.string(),
+    logo: z.string().optional(),
     name: z.string(),
     title: z.string(),
     description: z.string(),

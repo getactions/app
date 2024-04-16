@@ -11,13 +11,15 @@ import {
 type Category = Readonly<{
   id: string;
   name: string;
+  description: string;
+  emoji: string;
 }>;
 
 type Props = Readonly<{
   categories: ReadonlyArray<Category>;
 }>;
 
-export function WorkflowSwitcher({ categories }: Props) {
+export function CategorySwitcher({ categories }: Props) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -44,13 +46,13 @@ export function WorkflowSwitcher({ categories }: Props) {
       <p>I need a </p>
 
       <Select onValueChange={handleSelect} value={selectedCategory?.id}>
-        <SelectTrigger className="w-[200px]" aria-label="Switch workflow type">
+        <SelectTrigger className="w-[220px]" aria-label="Switch workflow type">
           <SelectValue placeholder={selectedCategory?.name} />
         </SelectTrigger>
         <SelectContent className="text-2xl">
           {categories.map((category) => (
             <SelectItem key={category.id} value={category.id}>
-              {category.name}
+              {category.emoji} <span className="pl-1">{category.name}</span>
             </SelectItem>
           ))}
         </SelectContent>

@@ -1,4 +1,4 @@
-import { CopyIcon } from "@radix-ui/react-icons";
+import { CopyIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
@@ -11,7 +11,7 @@ type Props = Readonly<{
   workflow: Readonly<{
     id: string;
     name: string;
-    logo: string;
+    logo?: string;
     title: string;
     readme: string;
     installCommand: string;
@@ -87,23 +87,20 @@ function Instructions({ workflow }: Props) {
             ) : null}
           </div>
         </div>
-        <p className="text-xs text-center text-gray-700">
-          You can find the{" "}
-          <Link
-            className="text-primary"
-            target="_blank"
-            to={`https://github.com/getactions/getactions/tree/main/${workflow.id}.yaml`}
-          >
-            source
-          </Link>{" "}
-          of the template in our{" "}
-          <Link
-            className="text-primary"
-            to="https://github.com/getactions/getactions"
-          >
-            repository
-          </Link>
-          .
+
+        <p className="inline-flex gap-2 justify-center text-xs text-gray-700">
+          <InfoCircledIcon />
+          <span>
+            Should this workflow not align perfectly with your requirements,
+            don't hesitate! We'd love to add your{" "}
+            <Link
+              to="https://github.com/getactions/getactions?tab=readme-ov-file#-how-do-i-contribute"
+              className="inline-block text-primary"
+            >
+              workflow
+            </Link>
+            .
+          </span>
         </p>
       </div>
     </div>
