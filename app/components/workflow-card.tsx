@@ -37,9 +37,7 @@ export function WorkflowCard({ workflow, footer }: Props) {
       </CardContent>
       <CardFooter className="flex justify-between">
         <>
-          <Badge variant="outline">
-            {workflow.category.emoji} {workflow.category.name}
-          </Badge>
+          <Badge variant="outline">{workflow.category.name}</Badge>
 
           {footer}
         </>
