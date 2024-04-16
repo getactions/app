@@ -11,7 +11,7 @@ type Props = Readonly<{
   workflow: Readonly<{
     id: string;
     name: string;
-    logo: string;
+    logo?: string;
     title: string;
     readme: string;
     installCommand: string;

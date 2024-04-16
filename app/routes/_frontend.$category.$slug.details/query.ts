@@ -37,7 +37,6 @@ export async function getModel(
       category: currentWorkflowDao.category,
       name: currentWorkflowDao.name,
       description: currentWorkflowDao.description,
-      logo: currentWorkflowDao.logo,
       title: currentWorkflowDao.title,
       readme: currentWorkflowDao.readme,
       source: currentWorkflowDao.contents,

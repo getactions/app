@@ -1,10 +1,10 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-import { getCategories } from "~/utils/workflows.server";
 import { json, redirect, useLoaderData } from "@remix-run/react";
+import { CategorySwitcher } from "~/components/category-switcher";
 import { WorkflowCards } from "~/components/workflow-cards";
-import { WorkflowSwitcher } from "~/components/workflow-switcher";
 import { getBaseUrl } from "~/utils/get-base-url.server";
+import { getCategories } from "~/utils/workflows.server";
 import { getWorkflows } from "./query";
 
 export const meta: MetaFunction<typeof loader> = ({ params, data }) => {
@@ -100,7 +100,7 @@ export default function Index() {
   return (
     <>
       <div className="flex justify-center">
-        <WorkflowSwitcher categories={loaderData.categories} />
+        <CategorySwitcher categories={loaderData.categories} />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <WorkflowCards workflows={loaderData.workflows} />
