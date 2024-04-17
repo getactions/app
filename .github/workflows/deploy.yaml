@@ -35,6 +35,7 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
+        delegates: ${{ secrets.GCP_DELEGATES }}
         export_environment_variables: 'true'
 
     - name: Set up Cloud SDK
