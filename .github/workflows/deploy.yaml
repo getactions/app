@@ -7,8 +7,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  REGION: europe-west3
-  IMAGE_URL: europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/getactions/production:latest
+  REGION: ${{ secrets.GCP_REGION }}s
+  IMAGE_URL: ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/getactions/production:latest
 
 jobs:
   build-deploy:
