@@ -9,7 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   REGION: europe-west3
   IMAGE_URL: europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/getactions/production:latest
-             europe-west3-docker.pkg.dev/getactions-v1/getactions
+
 jobs:
   build-deploy:
     name: Build and Deploy
