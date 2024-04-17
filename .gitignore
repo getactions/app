@@ -11,3 +11,5 @@ workflows/*
 !workflows/index.ts
 
 .tmp/
+
+gha-creds-*.json

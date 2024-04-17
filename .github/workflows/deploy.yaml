@@ -1,28 +1,48 @@
-name: "Deploy to fly.io"
+name: Deploy to Google Cloud Run
+
 on:
   push:
     branches:
       - main
 
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: europe-west3
+  IMAGE_URL: europe-west3-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/getactions/production:latest
+
 jobs:
-  deploy:
+  build-deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
-      - uses: superfly/flyctl-actions/setup-flyctl@1.5
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: bun i --frozen-lockfile
-      
-      - name: Populate latest workflows
-        run: bun run populate-workflows
+    - name: Authenticate with Google Cloud
+      uses: google-github-actions/auth@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+        workload_identity_provider: ${{ secrets.GCP_IDENTITY_PROVIDER }}
 
-      - name: Fly!
-        run: |
-          flyctl deploy \
-            --remote-only \
-            --no-cache \
-            --app ${{ secrets.PRODUCTION_FLY_APP_NAME }} \
-            --access-token ${{ secrets.FLY_API_TOKEN }}
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    - name: Configure Docker for Google Artifact Registry 
+      run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+    - name: Build container image
+      run: docker build . --tag ${{ env.IMAGE_URL }}
+
+    - name: Push container image
+      run: docker push ${{ env.IMAGE_URL }}
+
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy production \
+          --image ${{ env.IMAGE_URL }} \
+          --platform managed \
+          --region ${{ env.REGION }} \
+          --allow-unauthenticated
