@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.6.4",
-    "@flydotio/dockerfile": "latest",
     "@remix-run/dev": "^2.8.1",
     "@types/bun": "^1.0.12",
     "@types/common-tags": "^1.8.4",
