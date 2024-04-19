@@ -51,8 +51,7 @@ export default function Index() {
               Recently added workflows
             </h2>
             <p className="text-muted-foreground">
-              We're just getting started. Here are some of the latest workflows
-              added to the collection.
+              Here are some of the latest workflows added to the collection.
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
