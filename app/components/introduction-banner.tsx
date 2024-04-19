@@ -15,7 +15,7 @@ export function IntroductionBanner() {
       </span>{" "}
       <span className="lg:pl-3.5">
         Introducing getactions—a community-driven central hub for effortlessly
-        installing GitHub Actions workflows.
+        installable GitHub Actions workflows.
       </span>
       <Link
         to="https://github.com/getactions/getactions"
