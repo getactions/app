@@ -32,7 +32,7 @@ export default function Index() {
       <div className="h-screen flex flex-col gap-24">
         <header className="container flex flex-col gap-4 pt-24 py-16">
           <div className="w-fit">
-            <Logo />
+            <Logo hero />
           </div>
 
           <h2 className="text-midnight text-4xl lg:text-8xl font-extrabold tracking-tight lg:w-3/4">
