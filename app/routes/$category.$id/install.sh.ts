@@ -11,7 +11,7 @@ export function renderInstallScript(workflow: Workflow) {
 #
 # Installation Script
 #
-# Repository: https://github.com/openformation/getactions
+# Repository: https://github.com/getactions/getactions
 # Contact: hi@getactions.dev
 #
 #
