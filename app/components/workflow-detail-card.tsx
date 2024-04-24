@@ -1,7 +1,8 @@
-import { CopyIcon, InfoCircledIcon } from "@radix-ui/react-icons";
+import { CheckIcon, CopyIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
+import { CommentsDialog } from "./CommentsDialog";
 import { InlineCode } from "./inline-code";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { WorkflowLogo } from "./workflow-logo";
@@ -77,14 +78,14 @@ function Instructions({ workflow }: Props) {
           </pre>
 
           <div className="flex gap-2">
-            <CopyIcon
-              className="text-primary cursor-pointer"
-              onClick={handleCopy(workflow.installCommand)}
-            />
-
-            {wasCopied ? (
-              <span className="text-xs text-primary">Copied!</span>
+            {!wasCopied ? (
+              <CopyIcon
+                className="text-primary cursor-pointer"
+                onClick={handleCopy(workflow.installCommand)}
+              />
             ) : null}
+
+            {wasCopied ? <CheckIcon className="text-green-500" /> : null}
           </div>
         </div>
 
@@ -111,12 +112,14 @@ export function WorkflowDetailCard({ workflow }: Props) {
   return (
     <Card className="shadow-lg">
       <CardHeader className="flex flex-col gap-8">
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-4">
           <WorkflowSourceDialog
             id={workflow.id}
             title={workflow.title}
             source={workflow.source}
           />
+
+          <CommentsDialog id={workflow.id} title={workflow.title} />
         </div>
         <div className="flex flex-col items-center gap-4">
           <span className="w-12 h-12">

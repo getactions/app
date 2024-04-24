@@ -44,7 +44,7 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
     },
     {
       property: "og:title",
-      content: name,
+      content: `${data?.category.name}: ${data?.currentWorkflow.title} - getactions.dev`,
     },
     {
       property: "og:description",
