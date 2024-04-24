@@ -2,7 +2,7 @@ import { CheckIcon, CopyIcon, InfoCircledIcon } from "@radix-ui/react-icons";
 import { Link } from "@remix-run/react";
 import { useState } from "react";
 import Markdown from "react-markdown";
-import { CommentsDialog } from "./CommentsDialog";
+import { CommentsDialog } from "./comments-dialog";
 import { InlineCode } from "./inline-code";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { WorkflowLogo } from "./workflow-logo";
