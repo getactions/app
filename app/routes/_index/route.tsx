@@ -1,5 +1,5 @@
 import { PlusIcon } from "@radix-ui/react-icons";
-import { json } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Footer } from "~/components/footer";
 import { IntroductionBanner } from "~/components/introduction-banner";
@@ -21,6 +21,14 @@ export async function loader() {
 
   return json({ workflows });
 }
+
+export const meta: MetaFunction<typeof loader> = ({ data }) => {
+  return [
+    {
+      title: "GitHub Actions Starter Workflows - getactions.dev",
+    },
+  ];
+};
 
 export default function Index() {
   const loaderData = useLoaderData<typeof loader>();
