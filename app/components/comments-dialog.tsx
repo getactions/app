@@ -30,6 +30,7 @@ export function CommentsDialog({ id, title }: Props) {
       <div className="py-4 px-2.5 pr-3 max-h-[40vh] overflow-auto">
         <Giscus
           repo="getactions/comments"
+          host="https://comments.getactions.dev"
           repoId="R_kgDOLwjfnA"
           categoryId="DIC_kwDOLwjfnM4Cezi4"
           strict="1"
