@@ -28,7 +28,7 @@ bun i
 bun run dev
 ```
 
-Navigate your browser to [http://localhost:5173/](http://localhost:5173/) – Happy hacking!
+Navigate your browser to [http://localhost:5173/](http://localhost:5173/) – Happy hacking! 🚀
 
 ## Copyright
 
