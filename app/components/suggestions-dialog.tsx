@@ -1,31 +1,39 @@
 import Giscus from "@giscus/react";
 
-import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
 import { LoadingIndicator } from "./loading-indicator";
 import { ResponsiveDialog } from "./responsive-dialog";
 import { Button } from "./ui/button";
-import { WorkflowLogo } from "./workflow-logo";
 
 type Props = Readonly<{
-  id: string;
-  title: string;
+  trigger?: React.ReactNode;
 }>;
 
-export function CommentsDialog({ id, title }: Props) {
+export function SuggestionsDialog(props: Props) {
   return (
     <ResponsiveDialog
       title={
-        <div className="flex flex-col items-center gap-2 lg:gap-4">
-          <span className="w-8 h-8">
-            <WorkflowLogo id={id} title={title} />
-          </span>
-          <h2 className="text-lg lg:text-2xl font-bold">{title}</h2>
+        <div className="flex justify-center pt-8">
+          <div className="flex items-center gap-2 lg:gap-4">
+            <h2 className="text-lg lg:text-2xl font-bold">
+              Suggest a Workflow
+            </h2>
+          </div>
         </div>
       }
+      description={
+        <p className="text-center pb-8">
+          Have a workflow in mind that you'd like to see here? Suggest it below!
+        </p>
+      }
       trigger={
-        <Button size="sm" variant="outline" className="flex gap-2">
-          <ChatBubbleIcon /> Comments
-        </Button>
+        props.trigger ? (
+          props.trigger
+        ) : (
+          <Button size="lg" className="flex gap-2">
+            <PlusIcon /> Suggest a Workflow
+          </Button>
+        )
       }
     >
       {/* We render a loading animation here, which lives under the comments component.
@@ -41,12 +49,12 @@ export function CommentsDialog({ id, title }: Props) {
             repo="getactions/comments"
             host="https://comments.getactions.dev"
             repoId="R_kgDOLwjfnA"
-            categoryId="DIC_kwDOLwjfnM4Cezi4"
             strict="1"
-            mapping="og:title"
+            mapping="number"
+            term="15"
             reactionsEnabled="0"
             emitMetadata="0"
-            inputPosition="bottom"
+            inputPosition="top"
             lang="en"
           />
         </div>

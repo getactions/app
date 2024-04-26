@@ -1,10 +1,9 @@
-import { PlusIcon } from "@radix-ui/react-icons";
 import { json, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { Footer } from "~/components/footer";
 import { IntroductionBanner } from "~/components/introduction-banner";
 import { Logo } from "~/components/logo";
-import { Button } from "~/components/ui/button";
+import { SuggestionsDialog } from "~/components/suggestions-dialog";
 import { WorkflowCards } from "~/components/workflow-cards";
 import { getWorkflows } from "./query";
 
@@ -54,29 +53,27 @@ export default function Index() {
           </p>
         </header>
         <main className="container flex-1 flex flex-col gap-20">
-          <div className="flex flex-col gap-2">
-            <h2 className="text-xl text-primary font-extrabold tracking-tight">
-              Recently added workflows
-            </h2>
-            <p className="text-muted-foreground">
-              Here are some of the latest workflows added to the collection.
-            </p>
+          <div className="flex justify-between">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-xl text-primary font-extrabold tracking-tight">
+                Recently added workflows
+              </h2>
+              <p className="text-muted-foreground">
+                Here are some of the latest workflows added to the collection.
+              </p>
+            </div>
+            <span className="hidden lg:block">
+              <SuggestionsDialog />
+            </span>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <WorkflowCards workflows={loaderData.workflows} />
-            <div className="rounded-sm flex flex-col gap-4 justify-center items-center">
+
+            <div className="lg:hidden rounded-sm flex flex-col gap-4 justify-center items-center">
               <p>Don't see the workflow you need?</p>
-              <Link
-                to="https://github.com/getactions/getactions?tab=readme-ov-file#-how-do-i-contribute"
-                target="_blank"
-              >
-                <Button className="flex gap-2 text-primary" variant="outline">
-                  <PlusIcon className="h-4 w-4 text-primary" /> Add Workflow
-                </Button>
-              </Link>
+              <SuggestionsDialog />
               <p className="text-xs w-3/4 text-center text-muted-foreground">
-                We're super excited to see your workflows. Share them with the
-                world.
+                We're super excited to hear your ideas.
               </p>
             </div>
           </div>

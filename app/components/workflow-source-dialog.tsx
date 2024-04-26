@@ -34,7 +34,7 @@ function Code({ source }: Readonly<{ source: string }>) {
 
 function Headline({ id, title }: Pick<Props, "id" | "title">) {
   return (
-    <div className="flex items-start gap-2 lg:gap-4">
+    <div className="flex flex-col items-center gap-2 lg:gap-4">
       <span className="w-8 h-8">
         <WorkflowLogo id={id} title={title} />
       </span>
@@ -55,7 +55,7 @@ export function WorkflowSourceDialog(props: Props) {
         </Button>
       }
       description={
-        <p>
+        <p className="text-center pb-4">
           When you utilize the installation script, this workflow file will be
           rendered into your project.
         </p>

@@ -12,8 +12,10 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
+  DrawerTitle,
   DrawerTrigger,
 } from "./ui/drawer";
 
@@ -51,7 +53,12 @@ export function ResponsiveDialog(props: Props) {
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{trigger}</DrawerTrigger>
       <DrawerContent className="flex flex-col">
-        <DrawerHeader className="text-left sm:py-1">{title}</DrawerHeader>
+        <DrawerHeader className="text-left sm:py-1">
+          <DrawerTitle asChild>{title}</DrawerTitle>
+          {props.description ? (
+            <DrawerDescription asChild>{props.description}</DrawerDescription>
+          ) : null}
+        </DrawerHeader>
 
         <div className="py-2 px-4">{children}</div>
 
