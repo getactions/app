@@ -4,7 +4,7 @@
     "go@1.22.1",
     "nodejs@20",
     "google-cloud-sdk@latest",
-    "bun@1.0.36",
-    "flyctl@0.2.25"
+    "flyctl@0.2.25",
+    "bun@1.1.4"
   ]
 }
