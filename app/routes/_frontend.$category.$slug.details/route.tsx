@@ -1,8 +1,9 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, PlusIcon } from "@radix-ui/react-icons";
 import { NavLink, json, useLoaderData } from "@remix-run/react";
 import { ErrorBoundary } from "~/components/error-boundary";
+import { SuggestionsDialog } from "~/components/suggestions-dialog";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,6 +11,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
+import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -146,6 +148,17 @@ export default function WorkflowDetails() {
         </Breadcrumb>
       </div>
       <WorkflowDetailCard workflow={loaderData.currentWorkflow} />
+
+      <p className="flex flex-col justify-center items-center gap-4 text-muted-foreground text-sm pt-8">
+        Searching for a specific workflow, but can't find it?{" "}
+        <SuggestionsDialog
+          trigger={
+            <Button size="sm" variant="outline" className="flex gap-2">
+              <PlusIcon /> Suggest a Workflow
+            </Button>
+          }
+        />
+      </p>
     </div>
   );
 }

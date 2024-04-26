@@ -14,7 +14,7 @@ export default function FrontendLayout() {
       <IntroductionBanner />
 
       <div className="h-screen flex flex-col gap-24">
-        <header className="container flex flex-col lg:flex-row justify-center items-center gap-4 pt-16">
+        <header className="container flex flex-col lg:flex-row justify-center items-center gap-4 pt-10">
           <Logo />
 
           <Separator orientation="vertical" className="hidden lg:block" />
