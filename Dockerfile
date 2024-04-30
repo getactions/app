@@ -38,6 +38,9 @@ FROM node:${NODE_VERSION}-slim as distribution
 
 LABEL org.opencontainers.image.source = "https://github.com/getactions/app"
 
+# Install curl for healthcheck
+RUN apt update && apt install curl -y
+
 ENV NODE_ENV="production"
 
 WORKDIR /app
@@ -55,7 +58,5 @@ RUN chown -R node:node /app
 USER node
 
 EXPOSE 3000
-
-HEALTHCHECK CMD node -p 'require(\"http\").get(\"http://localhost:3000/health\", res => process.exit(res.statusCode === 200 ? 0 : 1))' > /dev/null || exit 1
 
 CMD [ "npm", "run", "start" ]
