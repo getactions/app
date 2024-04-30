@@ -56,4 +56,6 @@ USER node
 
 EXPOSE 3000
 
+HEALTHCHECK CMD node -p 'require(\"http\").get(\"http://localhost:3000/health\", res => process.exit(res.statusCode === 200 ? 0 : 1))' > /dev/null || exit 1
+
 CMD [ "npm", "run", "start" ]
