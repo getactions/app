@@ -1,17 +1,27 @@
-name: "Deploy to fly.io"
+name: "Deploy"
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
       - uses: oven-sh/setup-bun@v1
-      - uses: superfly/flyctl-actions/setup-flyctl@1.5
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Install dependencies
         run: bun i --frozen-lockfile
@@ -19,10 +29,22 @@ jobs:
       - name: Populate latest workflows
         run: bun run populate-workflows
 
-      - name: Fly!
-        run: |
-          flyctl deploy \
-            --remote-only \
-            --no-cache \
-            --app ${{ secrets.PRODUCTION_FLY_APP_NAME }} \
-            --access-token ${{ secrets.FLY_API_TOKEN }}
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN  }}
+
+      - name: Build image and push to registry
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Deploy to Coolify
+        run: | 
+          curl --fail-with-body --request GET '${{ secrets.COOLIFY_WEBHOOK }}' --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'

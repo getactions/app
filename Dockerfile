@@ -2,7 +2,7 @@ ARG NODE_VERSION=20
 
 FROM node:${NODE_VERSION}-slim as build
 
-ARG BUN_VERSION=1.0.36
+ARG BUN_VERSION=1.1.4
 
 WORKDIR /build
 
@@ -35,6 +35,11 @@ RUN curl -sf https://gobinaries.com/tj/node-prune | sh && \
     node-prune
 
 FROM node:${NODE_VERSION}-slim as distribution
+
+LABEL org.opencontainers.image.source = "https://github.com/getactions/app"
+
+# Install curl for healthcheck
+RUN apt update && apt install curl -y
 
 ENV NODE_ENV="production"
 
