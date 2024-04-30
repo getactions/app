@@ -36,6 +36,8 @@ RUN curl -sf https://gobinaries.com/tj/node-prune | sh && \
 
 FROM node:${NODE_VERSION}-slim as distribution
 
+LABEL org.opencontainers.image.source = "https://github.com/getactions/app"
+
 ENV NODE_ENV="production"
 
 WORKDIR /app
