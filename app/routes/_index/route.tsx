@@ -43,7 +43,7 @@ export default function Index() {
           </div>
 
           <h2 className="text-midnight text-4xl lg:text-8xl font-extrabold tracking-tight lg:w-3/4">
-            Don't Copy & Paste. Install GitHub Action Workflows.
+            Don't Copy & Paste. Install GitHub Actions Workflows.
           </h2>
 
           <p className="text-lg lg:text-2xl text-gray-500 lg:w-3/4 leading-relaxed">
