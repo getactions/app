@@ -45,6 +45,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     ?.split(",")
     .at(0);
 
+  console.log("URL", request.url);
+
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
     headers: {
