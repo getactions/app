@@ -45,12 +45,13 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     ?.split(",")
     .at(0);
 
-  await fetch("https://plausible.openformation.io/api/event", {
+  fetch("http://plausible.openformation.io/api/event", {
     method: "POST",
     headers: {
       ...request.headers,
       "X-Forwarded-For": xForwardedFor ?? "",
       "Content-Type": "application/json",
+      "User-Agent": request.headers.get("user-agent") ?? "node-fetch",
     },
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
