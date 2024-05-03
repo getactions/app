@@ -10,6 +10,7 @@ export async function getWorkflows() {
   const validation = Workflows.safeParse(
     daos.map((dao) => ({
       id: dao.id,
+      new: dao.new,
       name: dao.name,
       category: categories.find((category) => category.id === dao.category),
       title: dao.title,

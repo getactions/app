@@ -3,6 +3,7 @@ import { z } from "zod";
 export const Workflows = z.array(
   z.object({
     id: z.string(),
+    new: z.boolean(),
     category: z.object({
       id: z.string(),
       name: z.string(),

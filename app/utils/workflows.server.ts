@@ -10,6 +10,7 @@ const GitHubActionsLogo = `
 
 const Workflow = z.object({
   id: z.string(),
+  new: z.boolean(),
   category: z.string(),
   name: z.string(),
   logo: z.string().optional(),
@@ -96,6 +97,7 @@ const result = categories.flatMap((category) => {
           Readonly<{
             title: string;
             description: string;
+            new: boolean;
           }>
         >(readmeContents);
 
@@ -111,6 +113,7 @@ const result = categories.flatMap((category) => {
       const workflow = Workflow.parse({
         id,
         name,
+        new: Boolean(parsedReadme.attributes.new),
         logo: logoContents,
         category: category.id,
 
@@ -131,6 +134,16 @@ const workflows = result
   .map((workflows) => workflows)
   .reduce((acc, workflow) => Object.assign(acc, workflow), {});
 
+function sortByNew(a: Workflow, b: Workflow) {
+  if (a.new && !b.new) {
+    return -1;
+  }
+  if (!a.new && b.new) {
+    return 1;
+  }
+  return 0;
+}
+
 export function getCategories() {
   return categories;
 }
@@ -140,13 +153,14 @@ export function findById(id: string) {
 }
 
 export function findAll() {
-  return Object.values(workflows);
+  return Object.values(workflows).sort(sortByNew);
 }
 
 export function findByCategory(category: string) {
   const workflowsInCategory = Object.keys(workflows)
     .filter((id) => workflows[id].category === category)
-    .map((id) => workflows[id]);
+    .map((id) => workflows[id])
+    .sort(sortByNew);
 
   return workflowsInCategory;
 }

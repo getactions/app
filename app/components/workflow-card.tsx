@@ -1,3 +1,4 @@
+import { StarFilledIcon } from "@radix-ui/react-icons";
 import { Badge } from "./ui/badge";
 import {
   Card,
@@ -12,6 +13,7 @@ import { WorkflowLogo } from "./workflow-logo";
 type Props = Readonly<{
   workflow: Readonly<{
     id: string;
+    new: boolean;
     category: Readonly<{
       id: string;
       name: string;
@@ -25,7 +27,16 @@ type Props = Readonly<{
 
 export function WorkflowCard({ workflow, footer }: Props) {
   return (
-    <Card key={workflow.id} className="hover:shadow-xl transition-shadow">
+    <Card
+      key={workflow.id}
+      className="hover:shadow-xl transition-shadow relative"
+    >
+      {workflow.new ? (
+        <Badge className="absolute right-3 -top-3 flex items-center gap-1" variant="default">
+          <StarFilledIcon className="w-3 h-3" />
+          New
+        </Badge>
+      ) : null}
       <CardHeader>
         <div className="w-10 h-10">
           <WorkflowLogo id={workflow.id} title={workflow.title} />
