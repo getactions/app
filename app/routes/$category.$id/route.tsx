@@ -47,7 +47,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     ?.split(",")
     .at(0);
 
-  console.log("X-Forwarded-For", cfConnectingIp, xForwardedFor);
+  console.log("xForwardedFor", request.headers.get("x-forwarded-for"))
 
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
