@@ -38,6 +38,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = new URL(baseUrl).host;
 
+  // Detect the IP address of the client
+  const cfConnectingIp = request.headers.get("cf-connecting-ip");
   // Might be possible that the reverse proxy adds more IP addresses. We pick the first one
   // as this is the one from the client.
   const xForwardedFor = request.headers
@@ -49,7 +51,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     method: "POST",
     headers: {
       ...request.headers,
-      "X-Forwarded-For": xForwardedFor ?? "",
+      "X-Forwarded-For": (cfConnectingIp || xForwardedFor) ?? "",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
