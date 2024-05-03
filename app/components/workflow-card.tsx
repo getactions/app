@@ -32,7 +32,7 @@ export function WorkflowCard({ workflow, footer }: Props) {
       className="hover:shadow-xl transition-shadow relative"
     >
       {workflow.new ? (
-        <Badge className="absolute right-3 -top-3 flex items-center gap-1" variant="default">
+        <Badge className="absolute right-3 -top-3 flex items-center gap-1">
           <StarFilledIcon className="w-3 h-3" />
           New
         </Badge>
