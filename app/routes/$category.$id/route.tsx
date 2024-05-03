@@ -48,7 +48,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   fetch("http://plausible.openformation.io/api/event", {
     method: "POST",
     headers: {
-      ...request.headers,
+      "User-Agent": request.headers.get("User-Agent") ?? "",
       "X-Forwarded-For": xForwardedFor ?? "",
       "Content-Type": "application/json",
     },
