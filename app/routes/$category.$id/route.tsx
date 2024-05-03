@@ -32,20 +32,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = baseUrl.host;
 
-  console.log({
-    method: "POST",
-    headers: {
-      "User-Agent": request.headers.get("User-Agent") ?? "fetch",
-      "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: "InstallScriptWasDownloaded",
-      domain,
-      url: request.url,
-    }),
-  });
-
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
     headers: {
