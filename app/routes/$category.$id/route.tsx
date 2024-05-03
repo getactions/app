@@ -53,7 +53,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     }),
   );
 
-  fetch("https://plausible.openformation.io/api/event", {
+  fetch("https://plausible.io/api/event", {
     method: "POST",
     headers: {
       "User-Agent": request.headers.get("User-Agent") ?? "",
