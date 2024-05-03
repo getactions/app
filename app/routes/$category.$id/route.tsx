@@ -45,7 +45,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     ?.split(",")
     .at(0);
 
-  console.log("URL", `${baseUrl}${new URL(request.url).pathname}`);
+  console.log("URL", `${baseUrl.origin}${new URL(request.url).pathname}`);
 
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
@@ -57,7 +57,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
       domain,
-      url: `${baseUrl}${new URL(request.url).pathname}`,
+      url: `${baseUrl.origin}${new URL(request.url).pathname}`,
     }),
   }).catch((err) => {
     console.error(
