@@ -28,52 +28,31 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const script = renderInstallScript(workflow);
 
+  const baseUrl = new URL(getBaseUrl(request));
+
+  const domain = baseUrl.host;
+
+  fetch("https://plausible.openformation.io/api/event", {
+    method: "POST",
+    headers: {
+      "User-Agent": request.headers.get("User-Agent") ?? "fetch",
+      "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "InstallScriptWasDownloaded",
+      domain,
+      url: request.url,
+    }),
+  }).catch((cause) =>
+    console.error(`failed to send event to Plausible: ${cause}`),
+  );
+
   const response = new Response(script, {
     headers: {
       "Content-Type": "text/x-sh",
     },
   });
-
-  const baseUrl = new URL(getBaseUrl(request));
-
-  const domain = baseUrl.host;
-
-  console.log(
-    JSON.stringify({
-      headers: {
-        "User-Agent": request.headers.get("User-Agent") ?? "",
-        "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
-        "Content-Type": "application/json",
-      },
-      body: {
-        name: "InstallScriptWasDownloaded",
-        domain,
-        url: request.url,
-      },
-    }),
-  );
-
-  try {
-    const res = await fetch("https://plausible.io/api/event", {
-      method: "POST",
-      headers: {
-        // "User-Agent": request.headers.get("User-Agent") ?? "",
-        // "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "InstallScriptWasDownloaded",
-        domain,
-        url: request.url,
-      }),
-    });
-
-    console.log(`Received ${res.status} from Plausible`);
-  } catch (cause) {
-    console.error(
-      `Was unable to send InstallScriptWasDownloaded event to Plausible: ${cause}`,
-    );
-  }
 
   return response;
 }
