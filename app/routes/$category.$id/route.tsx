@@ -51,7 +51,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       ...request.headers,
       "X-Forwarded-For": xForwardedFor ?? "",
       "Content-Type": "application/json",
-      "User-Agent": request.headers.get("user-agent") ?? "node-fetch",
     },
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
@@ -60,7 +59,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     }),
   }).catch((err) => {
     console.error(
-      `Was unable to track InstallScriptWasDownloaded event to Plausible: ${err}`,
+      `Was unable to send InstallScriptWasDownloaded event to Plausible: ${err}`,
     );
   });
 
