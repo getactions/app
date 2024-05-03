@@ -34,9 +34,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     },
   });
 
-  const baseUrl = getBaseUrl(request);
+  const baseUrl = new URL(getBaseUrl(request));
 
-  const domain = new URL(baseUrl).host;
+  const domain = baseUrl.host;
 
   // Might be possible that the reverse proxy adds more IP addresses. We pick the first one
   // as this is the one from the client.
@@ -57,7 +57,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
       domain,
-      url: request.url,
+      url: `${baseUrl}${new URL(request.url).pathname}`,
     }),
   }).catch((err) => {
     console.error(
