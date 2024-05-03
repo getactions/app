@@ -38,20 +38,11 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = baseUrl.host;
 
-  // Might be possible that the reverse proxy adds more IP addresses. We pick the first one
-  // as this is the one from the client.
-  const xForwardedFor = request.headers
-    .get("x-forwarded-for")
-    ?.split(",")
-    .at(0);
-
-  console.log("URL", `${baseUrl.origin}${new URL(request.url).pathname}`);
-
   console.log(
     JSON.stringify({
       headers: {
         "User-Agent": request.headers.get("User-Agent") ?? "",
-        "X-Forwarded-For": xForwardedFor ?? "",
+        "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
         "Content-Type": "application/json",
       },
       body: {
@@ -66,7 +57,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     method: "POST",
     headers: {
       "User-Agent": request.headers.get("User-Agent") ?? "",
-      "X-Forwarded-For": xForwardedFor ?? "",
+      "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
