@@ -53,23 +53,27 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     }),
   );
 
-  fetch("https://plausible.io/api/event", {
-    method: "POST",
-    headers: {
-      "User-Agent": request.headers.get("User-Agent") ?? "",
-      "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: "InstallScriptWasDownloaded",
-      domain,
-      url: `${baseUrl.origin}${new URL(request.url).pathname}`,
-    }),
-  }).catch((err) => {
+  try {
+    const res = await fetch("https://plausible.io/api/event", {
+      method: "POST",
+      headers: {
+        "User-Agent": request.headers.get("User-Agent") ?? "",
+        "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "InstallScriptWasDownloaded",
+        domain,
+        url: `${baseUrl.origin}${new URL(request.url).pathname}`,
+      }),
+    });
+
+    console.log(`Received ${res.status} from Plausible`);
+  } catch (cause) {
     console.error(
-      `Was unable to send InstallScriptWasDownloaded event to Plausible: ${err}`,
+      `Was unable to send InstallScriptWasDownloaded event to Plausible: ${cause}`,
     );
-  });
+  }
 
   return response;
 }
