@@ -48,7 +48,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       body: {
         name: "InstallScriptWasDownloaded",
         domain,
-        url: `${baseUrl.origin}${new URL(request.url).pathname}`,
+        url: request.url,
       },
     }),
   );
@@ -57,14 +57,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     const res = await fetch("https://plausible.io/api/event", {
       method: "POST",
       headers: {
-        "User-Agent": request.headers.get("User-Agent") ?? "",
-        "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
+        // "User-Agent": request.headers.get("User-Agent") ?? "",
+        // "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: "InstallScriptWasDownloaded",
         domain,
-        url: `${baseUrl.origin}${new URL(request.url).pathname}`,
+        url: request.url,
       }),
     });
 
