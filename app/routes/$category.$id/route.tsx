@@ -38,7 +38,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       "User-Agent": request.headers.get("User-Agent") ?? "fetch",
       "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
       "Content-Type": "application/json",
-      "X-Debug-Request": "true",
     },
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
