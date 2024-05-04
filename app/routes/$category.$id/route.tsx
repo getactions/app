@@ -50,7 +50,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
     console.log(`Received response from Plausible: ${res.status}`);
 
-    const body = await res.json();
+    const body = await res.text();
 
     console.log(`Body: ${body}`);
   } catch (cause) {
