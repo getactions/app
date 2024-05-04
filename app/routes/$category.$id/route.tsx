@@ -32,21 +32,30 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = baseUrl.host;
 
-  fetch("https://plausible.openformation.io/api/event", {
-    method: "POST",
-    headers: {
-      "User-Agent": request.headers.get("User-Agent") ?? "fetch",
-      "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: "InstallScriptWasDownloaded",
-      domain,
-      url: request.url,
-    }),
-  }).catch((cause) =>
-    console.error(`failed to send event to Plausible: ${cause}`),
-  );
+  try {
+    const res = await fetch("https://plausible.openformation.io/api/event", {
+      method: "POST",
+      headers: {
+        "User-Agent": request.headers.get("User-Agent") ?? "fetch",
+        "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
+        "Content-Type": "application/json",
+        "X-Debug-Request": "true",
+      },
+      body: JSON.stringify({
+        name: "InstallScriptWasDownloaded",
+        domain,
+        url: request.url,
+      }),
+    });
+
+    console.log(`Received response from Plausible: ${res.status}`);
+
+    const body = await res.json();
+
+    console.log(`Body: ${body}`);
+  } catch (cause) {
+    console.error(`failed to send event to Plausible: ${cause}`);
+  }
 
   const response = new Response(script, {
     headers: {
