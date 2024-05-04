@@ -32,24 +32,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = baseUrl.host;
 
-  const headers = new Headers();
-
-  for (const [key, value] of request.headers) {
-    const normalizedKey = key.toLowerCase();
-    const isHost = normalizedKey === "host";
-    const isCookie = normalizedKey === "cookie";
-
-    const isAddable = !isHost && !isCookie;
-
-    if (isAddable) {
-      console.log("Adding", key, value);
-      headers.append(key, value);
-    }
-  }
-
   fetch("https://plausible.openformation.io/api/event", {
     method: "POST",
-    headers,
+    headers: {
+      "User-Agent": request.headers.get("User-Agent") ?? "fetch",
+      "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
+      "Content-Type": "application/json",
+      "X-Debug-Request": "true",
+    },
     body: JSON.stringify({
       name: "InstallScriptWasDownloaded",
       domain,
