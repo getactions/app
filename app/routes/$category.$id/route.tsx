@@ -35,7 +35,13 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const headers = new Headers();
 
   for (const [key, value] of request.headers) {
-    if (!key.toLowerCase().startsWith("cookie")) {
+    const normalizedKey = key.toLowerCase();
+    const isHost = normalizedKey === "host";
+    const isCookie = normalizedKey === "cookie";
+
+    const isAddable = !isHost && !isCookie;
+
+    if (isAddable) {
       headers.append(key, value);
     }
   }
