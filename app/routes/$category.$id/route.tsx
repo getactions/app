@@ -42,6 +42,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     const isAddable = !isHost && !isCookie;
 
     if (isAddable) {
+      console.log("Adding", key, value);
       headers.append(key, value);
     }
   }
