@@ -41,6 +41,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
           "User-Agent": request.headers.get("User-Agent") ?? "fetch",
           "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
           "Content-Type": "application/json",
+          "X-Debug-Requested": "true",
         },
         body: JSON.stringify({
           name: "InstallScriptWasDownloaded",
@@ -51,7 +52,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     );
 
     console.log(response.status, await response.text());
-    console.log(response.headers.toJSON());
+    console.log(response.headers);
   } catch (cause) {
     console.error(`failed to send event to Plausible: ${cause}`);
   }
