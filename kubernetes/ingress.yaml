@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: getactions-app
+  namespace: getactions
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    certResolver: letsencrypt
+  routes:
+  - match: Host(`getactions.dev`)
+    kind: Rule
+    services:
+    - kind: Service
+      name: getactions-app
+      namespace: getactions
+      passHostHeader: true
+      port: 80
+      nativeLB: true

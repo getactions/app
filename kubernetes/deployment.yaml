@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: getactions
+  name: getactions-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: getactions-app
+  template:
+    metadata:
+      labels:
+        app: getactions-app
+    spec:
+      containers:
+      - name: getactions-app
+        imagePullPolicy: Always
+        image: ghcr.io/getactions/app:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "0.5"
+            memory: "512Mi"
