@@ -34,28 +34,20 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const xForwardedFor = request.headers.get("X-Forwarded-For");
 
-  try {
-    const response = await fetch(
-      "https://plausible.openformation.io/api/event",
-      {
-        method: "POST",
-        headers: {
-          ...(xForwardedFor && { "X-Forwarded-For": xForwardedFor }),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "InstallScriptWasDownloaded",
-          domain,
-          url: request.url,
-        }),
-      },
-    );
-
-    console.log(response.status, await response.text());
-    console.log(response.headers);
-  } catch (cause) {
-    console.error(`failed to send event to Plausible: ${cause}`);
-  }
+  fetch("https://plausible.openformation.io/api/event", {
+    method: "POST",
+    headers: {
+      ...(xForwardedFor && { "X-Forwarded-For": xForwardedFor }),
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "InstallScriptWasDownloaded",
+      domain,
+      url: request.url,
+    }),
+  }).catch((cause) =>
+    console.error(`failed to send event to Plausible: ${cause}`),
+  );
 
   const response = new Response(script, {
     headers: {
