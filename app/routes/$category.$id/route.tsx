@@ -32,6 +32,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = baseUrl.host;
 
+  console.log("X-Forwarded-For", request.headers.get("X-Forwarded-For"));
+
   try {
     const response = await fetch(
       "https://plausible.openformation.io/api/event",
@@ -54,8 +56,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
     console.log(response.status, await response.text());
     console.log(response.headers);
-
-    console.log(await response.text());
   } catch (cause) {
     console.error(`failed to send event to Plausible: ${cause}`);
   }
