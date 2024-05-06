@@ -44,7 +44,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
         headers: {
           "User-Agent":
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          "X-Forwarded-For": xForwardedFor,
+          ...(xForwardedFor && { "X-Forwarded-For": xForwardedFor }),
           "Content-Type": "application/json",
           "X-Debug-Request": "true",
         },
