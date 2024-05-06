@@ -32,7 +32,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const domain = baseUrl.host;
 
-  console.log("X-Forwarded-For", request.headers.get("X-Forwarded-For"));
+  const xForwardedFor = request.headers.get("X-Forwarded-For");
+
+  console.log("X-Forwarded-For", xForwardedFor);
 
   try {
     const response = await fetch(
@@ -42,7 +44,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
         headers: {
           "User-Agent":
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
+          "X-Forwarded-For": xForwardedFor,
           "Content-Type": "application/json",
           "X-Debug-Request": "true",
         },
