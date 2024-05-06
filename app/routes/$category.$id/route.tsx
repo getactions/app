@@ -54,6 +54,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
     console.log(response.status, await response.text());
     console.log(response.headers);
+
+    console.log(await response.text());
   } catch (cause) {
     console.error(`failed to send event to Plausible: ${cause}`);
   }
