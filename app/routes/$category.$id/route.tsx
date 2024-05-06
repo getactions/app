@@ -38,7 +38,8 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       {
         method: "POST",
         headers: {
-          "User-Agent": request.headers.get("User-Agent") ?? "fetch",
+          "User-Agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           "X-Forwarded-For": request.headers.get("X-Forwarded-For") ?? "",
           "Content-Type": "application/json",
           "X-Debug-Requested": "true",
