@@ -34,19 +34,14 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   const xForwardedFor = request.headers.get("X-Forwarded-For");
 
-  console.log("X-Forwarded-For", xForwardedFor);
-
   try {
     const response = await fetch(
       "https://plausible.openformation.io/api/event",
       {
         method: "POST",
         headers: {
-          "User-Agent":
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
           ...(xForwardedFor && { "X-Forwarded-For": xForwardedFor }),
           "Content-Type": "application/json",
-          "X-Debug-Request": "true",
         },
         body: JSON.stringify({
           name: "InstallScriptWasDownloaded",
