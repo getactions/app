@@ -51,7 +51,7 @@ jobs:
           images: |
             ${{ env.IMAGE_URL }}
           labels: |
-            dockerfile-path=https://github.com/${{github.repo}}/blob/${{github.sha}}/Dockerfile
+            dockerfile-path=https://github.com/${{ github.repository }}/blob/${{ github.sha }}/Dockerfile
 
       - name: Build image and push to registry
         uses: docker/build-push-action@v5
