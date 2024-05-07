@@ -75,6 +75,8 @@ jobs:
           manifests: |
             kubernetes/deployment.yaml
             kubernetes/ingress.yaml
+            kubernetes/scaling.yaml
+            kubernetes/service-account.yaml
             kubernetes/service.yaml
           images: |
             ${{ env.IMAGE_URL }}
