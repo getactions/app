@@ -44,6 +44,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN  }}
 
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.IMAGE_URL }}
+          labels: |
+            dockerfile-path=https://github.com/${{github.repo}}/blob/${{github.sha}}/Dockerfile
+
       - name: Build image and push to registry
         uses: docker/build-push-action@v5
         with:
@@ -52,7 +61,7 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: ${{ env.IMAGE_URL }}
-          labels: dockerfile-path=https://github.com/${{github.repo}}/blob/${{github.sha}}/Dockerfile
+          labels: ${{ steps.meta.outputs.labels }}
 
       - name: Join our Tailnet
         uses: tailscale/github-action@v2
