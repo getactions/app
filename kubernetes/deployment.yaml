@@ -16,7 +16,7 @@ spec:
       containers:
       - name: getactions-app
         imagePullPolicy: Always
-        image: ghcr.io/getactions/app:latest
+        image: ghcr.io/getactions/app
         ports:
         - containerPort: 3000
         resources:
