@@ -84,10 +84,6 @@ jobs:
           pull-images: false
           namespace: getactions
           manifests: |
-            kubernetes/deployment.yaml
-            kubernetes/ingress.yaml
-            kubernetes/scaling.yaml
-            kubernetes/service-account.yaml
-            kubernetes/service.yaml
+            kubernetes
           images: |
             ${{ env.IMAGE_URL }}

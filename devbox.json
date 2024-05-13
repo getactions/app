@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetpack-io/devbox/0.10.1/.schema/devbox.schema.json",
   "packages": [
-    "bun@1.1.4",
     "nodejs@20",
-    "kubectl@1.30.0"
+    "kubectl@1.30.0",
+    "bun@1.1.7"
   ]
 }
